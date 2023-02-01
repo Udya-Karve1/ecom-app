@@ -49,7 +49,7 @@ public class MainConfig {
         UserTransactionManager userTransactionManager = new UserTransactionManager();
         userTransactionManager.setForceShutdown(false);
 
-        AtomikosJtaPlatform.transactionManager = userTransactionManager;
+        AtomikosJtaPlatform.transactionManager = (TransactionManager)userTransactionManager;
 
         return userTransactionManager;
     }
