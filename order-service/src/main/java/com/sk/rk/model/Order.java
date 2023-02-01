@@ -1,13 +1,15 @@
 package com.sk.rk.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order_table")
 @Data
+@Builder
 public class Order {
 
     @Id

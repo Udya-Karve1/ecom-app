@@ -23,6 +23,11 @@
         <module>inventory-service</module>
         <module>payment-service</module>
         <module>order-read-service</module>
+        <module>order-orchestrator-service</module>
+        <module>config-service</module>
+        <module>common-dto-event</module>
+        <module>gateway-service</module>
+        <module>vendor-service</module>
     </modules>
 
     <build>
