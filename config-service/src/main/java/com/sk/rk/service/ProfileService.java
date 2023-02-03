@@ -54,17 +54,14 @@ public class ProfileService {
     @Transient
     public void deleteProfile(Long profileId) throws Exception {
 
-        List<Property> properties = propertyRepository.findByProfileId(profileId);
-
-        Optional<Profile> profileEntity = profileRepository.findById(profileId);
+        Profile profile = profileRepository.findById(profileId)
+                .orElseThrow(()->new Exception("Profile not found."));
+        List<Property> properties = propertyRepository.findByProfile(profile);
 
         if(!CollectionUtils.isEmpty(properties)){
             throw new Exception("Can not delete Profile, profile is mapped with property");
         }
-        if(profileEntity.isPresent()) {
-            profileRepository.delete(profileEntity.get());
-        } else {
-            throw new Exception("Profile not exists.");
-        }
+
+        profileRepository.delete(profile);
     }
 }

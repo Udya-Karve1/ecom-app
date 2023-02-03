@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.sk.rk.model.PropertyAddRequest;
+import com.sk.rk.model.PropertyUpdateRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,7 @@ public class PropertyController {
         return new ResponseEntity(profileService.getAllProfiles(), HttpStatus.OK);
     }
 
+
     @DeleteMapping("/profile/{profile-id}")
     public ResponseEntity<String> deleteProfile(
             @PathVariable("profile-id") Long profileId
@@ -50,6 +53,8 @@ public class PropertyController {
     }
 
 
+
+
     @DeleteMapping("/application/{application-id}")
     public ResponseEntity<String> deleteApplication(
             @PathVariable("application-id") Long applicationId
@@ -61,6 +66,7 @@ public class PropertyController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
 
     @GetMapping("/application/all")
@@ -81,19 +87,22 @@ public class PropertyController {
         return new ResponseEntity<>(applicationService.updateApplication(applicationEntity), HttpStatus.OK);
     }
 
+
     @PostMapping
     public ResponseEntity<Property> addProperty(
-            @RequestBody Property propertyEntity
+            @RequestBody PropertyAddRequest propertyEntity
     ) throws Exception {
         return new ResponseEntity<>(propertyService.saveProperty(propertyEntity), HttpStatus.OK);
     }
 
+
     @PutMapping
     public ResponseEntity<Property> editProperty(
-            @RequestBody Property propertyEntity
+            @RequestBody PropertyUpdateRequest propertyEntity
     ) throws Exception {
         return new ResponseEntity<>(propertyService.updateProperty(propertyEntity), HttpStatus.OK);
     }
+
 
     @PostMapping("/profile")
     public ResponseEntity<Profile> addProfile(

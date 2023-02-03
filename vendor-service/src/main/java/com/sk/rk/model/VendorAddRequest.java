@@ -13,6 +13,4 @@ public class VendorAddRequest {
     private String vendorName;
     private String email;
     private String mobile;
-
-
 }

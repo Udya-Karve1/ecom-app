@@ -1,4 +1,4 @@
-package com.sk.rk.model;
+package com.sk.rk.repository.subscription;
 
 import jakarta.persistence.Entity;
 import lombok.Data;

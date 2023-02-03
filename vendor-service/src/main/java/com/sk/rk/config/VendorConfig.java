@@ -1,63 +1,57 @@
 package com.sk.rk.config;
 
-
-import java.util.HashMap;
+import jakarta.persistence.EntityManagerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-
-import com.mysql.jdbc.jdbc2.optional.MysqlXADataSource;
-import com.sk.rk.repository.vendor.VendorDataSourceProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import com.atomikos.jdbc.AtomikosDataSourceBean;
-
 @Configuration
-@DependsOn("transactionManager")
-@EnableJpaRepositories(basePackages = "com.sk.rk.repository.vendor", entityManagerFactoryRef = "Vendor", transactionManagerRef = "transactionManager")
-@EnableConfigurationProperties(VendorDataSourceProperty.class)
+@EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.sk.rk.repository.vendor"
+        , entityManagerFactoryRef = "vendorEntityManagerFactory"
+        , transactionManagerRef = "vendorSqlPlatformTransactionManager")
 public class VendorConfig {
-    @Autowired
-    private JpaVendorAdapter jpaVendorAdapter;
-
-    @Autowired
-    private VendorDataSourceProperty vendorDataSourceProperty;
-
-    @Bean(name = "customerDataSource", initMethod = "init", destroyMethod = "close")
-    public DataSource customerDataSource() {
-        MysqlXADataSource h2XaDataSource = new MysqlXADataSource();
-
-        h2XaDataSource.setURL(vendorDataSourceProperty.getUrl());
-        h2XaDataSource.setUser(vendorDataSourceProperty.getUsername());
-        h2XaDataSource.setPassword(vendorDataSourceProperty.getPassword());
-        h2XaDataSource.setUseSSL(false);
-
-        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(h2XaDataSource);
-        xaDataSource.setUniqueResourceName("xads1");
-        return xaDataSource;
+    @Primary
+    @Bean
+    @ConfigurationProperties("vendor.datasource")
+    public DataSourceProperties vendorDataSourceProperties() {
+        return new DataSourceProperties();
     }
 
-    @Bean(name = "customerEntityManager")
-    @DependsOn("transactionManager")
-    public LocalContainerEntityManagerFactoryBean customerEntityManager() throws Throwable {
+    @Primary
+    @Bean
+    public DataSource vendorSqlDataSource(@Qualifier("vendorDataSourceProperties")
+                                              DataSourceProperties vendorDataSourceProperties) {
+        return vendorDataSourceProperties
+                .initializeDataSourceBuilder().build();
+    }
 
-        HashMap<String, Object> properties = new HashMap<String, Object>();
-        properties.put("hibernate.transaction.jta.platform", AtomikosJtaPlatform.class.getName());
-        properties.put("javax.persistence.transactionType", "JTA");
+    @Primary
+    @Bean
+    public LocalContainerEntityManagerFactoryBean vendorEntityManagerFactory(
+            @Qualifier("vendorSqlDataSource") DataSource pgsqlDataSource, EntityManagerFactoryBuilder builder) {
+        return builder
+                .dataSource(pgsqlDataSource)
+                .packages("com.sk.rk.repository.vendor")
+                .persistenceUnit("vendorSql")
+                .build();
+    }
 
-        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
-        entityManager.setJtaDataSource(customerDataSource());
-        entityManager.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManager.setPackagesToScan("com.example.domain.customer");
-        entityManager.setPersistenceUnitName("customerPersistenceUnit");
-        entityManager.setJpaPropertyMap(properties);
-        return entityManager;
+    @Primary
+    @Bean
+    public PlatformTransactionManager vendorSqlPlatformTransactionManager(
+            @Qualifier("vendorEntityManagerFactory") EntityManagerFactory vendorEntityManagerFactory) {
+        return new JpaTransactionManager(vendorEntityManagerFactory);
     }
 }

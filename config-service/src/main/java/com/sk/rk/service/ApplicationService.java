@@ -53,17 +53,14 @@ public class ApplicationService {
 
     @Transient
     public void deleteApplication(Long applicationId) throws Exception {
+        Application application = applicationRepository.findById(applicationId)
+                .orElseThrow(()->new Exception("Application not found"));
 
-        List<Property> properties = propertyRepository.findByApplicationId(applicationId);
+        List<Property> properties = propertyRepository.findByApplication(application);
 
         if(!CollectionUtils.isEmpty(properties)) {
             throw new Exception("Can not delete application, it is mapped with property");
         }
-        Optional<Application> profileEntity = applicationRepository.findById(applicationId);
-        if(profileEntity.isPresent()) {
-            applicationRepository.delete(profileEntity.get());
-        } else {
-            throw new Exception("Application not exists.");
-        }
+        applicationRepository.delete(application);
     }
 }

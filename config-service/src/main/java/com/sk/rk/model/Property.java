@@ -21,12 +21,23 @@ public class Property {
     @Column(name = "`Value`")
     private String value;
 
-    @Column(name = "ApplicationId")
+/*
+    @Column(name = "aplication_id")
     private Long applicationId;
 
     @Column(name = "ProfileId")
     private Long profileId;
+*/
 
     @Column(name = "Label")
     private String label;
+
+    @ManyToOne
+    @JoinColumn(name = "application_id")
+    private Application application;
+
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
+
 }

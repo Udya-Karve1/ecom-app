@@ -1,8 +1,8 @@
 package com.sk.rk.service;
 
-import com.sk.rk.model.Vendor;
+import com.sk.rk.repository.vendor.Vendor;
 import com.sk.rk.model.VendorAddRequest;
-import com.sk.rk.model.VendorSubscription;
+import com.sk.rk.repository.subscription.VendorSubscription;
 import com.sk.rk.repository.subscription.VendorSubscriptionRepository;
 import com.sk.rk.repository.vendor.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

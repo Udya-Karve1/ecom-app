@@ -1,4 +1,4 @@
-package com.sk.rk.model;
+package com.sk.rk.repository.vendor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

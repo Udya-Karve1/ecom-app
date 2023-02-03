@@ -28,6 +28,7 @@
         <module>common-dto-event</module>
         <module>gateway-service</module>
         <module>vendor-service</module>
+        <module>authorization-service</module>
     </modules>
 
     <build>

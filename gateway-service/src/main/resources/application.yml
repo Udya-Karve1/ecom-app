@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: gateway-server
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/gateway-db
+    username: root
+    password: admin123
+
+server:
+  port: 8080
+
+# discovery server configuration
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+# okta configuration
+
+okta:
+  oauth2:
+    issuer: https://dev-53810615.okta.com/oauth2/default
+    audience: api://default
+    client-id: 0oa87cp9ch7xALwGS5d7
+    client-secret: 0KAmqCKHcUU8Lrs24YCmZEL1U7ipiE_tavKNGKPi
+    scope: openid, profile, email, offline_access
+
+
+

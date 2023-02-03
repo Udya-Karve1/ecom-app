@@ -1,0 +1,21 @@
+CREATE SCHEMA `product-db` ;
+USE `product-db`;
+
+CREATE TABLE `product` (
+  `product_id` bigint NOT NULL AUTO_INCREMENT,
+  `price` decimal(38,2) DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  PRIMARY KEY (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+Insert into product (product_name, price, quantity) values('Mobile cover', 250.00, 100);
+Insert into product (product_name, price, quantity) values('USB cable', 50.00, 50);
+Insert into product (product_name, price, quantity) values('USB Convertor', 50.00, 20);
+Insert into product (product_name, price, quantity) values('Wifi-extender', 450.00, 20);
+Insert into product (product_name, price, quantity) values('Bluetooth keyboard', 1150.00, 10);
+Insert into product (product_name, price, quantity) values('Bluetooth mouse', 550.00, 10);
+
+
+

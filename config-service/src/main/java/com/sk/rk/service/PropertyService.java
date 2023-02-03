@@ -1,12 +1,18 @@
 package com.sk.rk.service;
 
+import com.sk.rk.model.Application;
+import com.sk.rk.model.Profile;
 import com.sk.rk.model.Property;
+import com.sk.rk.repository.ApplicationRepository;
+import com.sk.rk.repository.ProfileRepository;
 import com.sk.rk.repository.PropertyRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import com.sk.rk.model.PropertyAddRequest;
+import com.sk.rk.model.PropertyUpdateRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +23,13 @@ import java.util.Optional;
 public class PropertyService {
 
     @Autowired
-    PropertyRepository propertyRepository;
+    private PropertyRepository propertyRepository;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private ProfileRepository profileRepository;
 
     private static List<String> profileList = new ArrayList<>();
 
@@ -35,14 +46,39 @@ public class PropertyService {
         return propertyRepository.serachProperties();
     }
 
-    public Property saveProperty(Property propertyEntity) throws Exception {
+
+    private Property createEntityProperty(Application application, Profile profile, PropertyAddRequest request ){
+        Property property = new Property();
+        property.setApplication(application);
+        property.setProfile(profile);
+        property.setKey(request.getKey());
+        property.setValue(request.getValue());
+        property.setLabel(request.getLabel());
+
+        return property;
+    }
+
+    private Property createEntityPropertyEdit(Application application, Profile profile, PropertyUpdateRequest  request ){
+        Property property = createEntityProperty(application, profile, request);
+        property.setId(request.getId());
+
+        return property;
+    }
+
+
+    public Property saveProperty(PropertyAddRequest request) throws Exception {
+
+        Profile profile = profileRepository.findById(request.getProfileId()).orElseThrow(()-> new Exception("Profile not found"));
+        Application application = applicationRepository.findById(request.getApplicationId()).orElseThrow(()-> new Exception("ApplicationRepository not found"));
+
 
         List<Map<String, Object>> propertyList = propertyRepository.getProperties(
-                propertyEntity.getKey(), propertyEntity.getValue(), propertyEntity.getApplicationId(), propertyEntity.getProfileId()
+                request.getKey(), request.getValue(), request.getApplicationId(), request.getProfileId()
         );
 
+
         if(CollectionUtils.isEmpty(propertyList)) {
-            return propertyRepository.save(propertyEntity);
+            return propertyRepository.save(createEntityProperty(application, profile, request));
         } else {
 
             Map<String, Object> propertyMap = propertyList.get(0);
@@ -57,14 +93,19 @@ public class PropertyService {
     }
 
 
-    public Property updateProperty(Property propertyEntity) throws Exception {
+
+
+    public Property updateProperty(PropertyUpdateRequest request) throws Exception {
+
+        Profile profile = profileRepository.findById(request.getProfileId()).orElseThrow(()-> new Exception("Profile not found"));
+        Application application = applicationRepository.findById(request.getApplicationId()).orElseThrow(()-> new Exception("ApplicationRepository not found"));
 
         List<Map<String, Object>> propertyList = propertyRepository.getPropertyToValidateUpdate(
-                propertyEntity.getId(), propertyEntity.getKey(), propertyEntity.getValue(), propertyEntity.getApplicationId(), propertyEntity.getProfileId()
+                request.getId(), request.getKey(), request.getValue(), request.getApplicationId(), request.getProfileId()
                 );
 
         if(CollectionUtils.isEmpty(propertyList)) {
-            return propertyRepository.saveAndFlush(propertyEntity);
+            return propertyRepository.save(createEntityPropertyEdit(application, profile, request));
         } else {
             Map<String, Object> propertyMap = propertyList.get(0);
 
@@ -76,6 +117,7 @@ public class PropertyService {
                             "Label: " + propertyMap.get("Label") + "\n" );
         }
     }
+
 
     public List<String> getAllProfile() {
         return profileList;

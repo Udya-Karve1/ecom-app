@@ -1,5 +1,7 @@
 package com.sk.rk.repository;
 
+import com.sk.rk.model.Application;
+import com.sk.rk.model.Profile;
 import com.sk.rk.model.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,11 +27,11 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             @Param("ProfileId") Long profileId
     );
 
-    @Query(value = "select PR.Id, PR.Key, PR.Value, AP.Application, PRO.Profile from Properties PR " +
-            "inner join Application AP on AP.ApplicationId = PR.ApplicationId " +
-            "inner join Profile PRO on PRO.ProfileId = PR.ProfileId " +
-            "where AP.Application = :Application AND PRO.Profile = :Profile " +
-            "order by Profile, Application", nativeQuery = true)
+    @Query(value = "select PR.id, PR.key, PR.value, lower(AP.application) application, PRO.profile from properties PR " +
+            "inner join Application AP on AP.application_id = PR.application_id " +
+            "inner join Profile PRO on PRO.profile_id = PR.profile_id " +
+            "where AP.application = :Application AND PRO.profile = :Profile " +
+            "order by profile, application", nativeQuery = true)
     List<Map<String, Object>> getPropertyesByApplicaitonAndProfile(
             @Param("Application") String application,
             @Param("Profile") String profileI
@@ -68,8 +70,20 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             @Param("ProfileId") Long profileId
     );
 
+/*
     List<Property> findByProfileId(Long profileId);
 
     List<Property> findByApplicationId(Long applicationId);
+
+*/
+//********************************************************************* ///
+
+    List<Property> findByApplicationAndProfile(Application application, Profile profile);
+
+    List<Property> findByApplication(Application application);
+
+    List<Property> findByProfile(Profile profile);
+
+
 
 }
