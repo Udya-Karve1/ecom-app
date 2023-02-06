@@ -50,5 +50,4 @@ const consume = async () => {
 	})
 }
 
-
 module.exports = consume

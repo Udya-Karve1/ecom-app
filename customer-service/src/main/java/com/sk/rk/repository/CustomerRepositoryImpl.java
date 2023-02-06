@@ -24,26 +24,27 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public int save(AddCustomer customer) {
-        return jdbcTemplate.update("insert into customer (firstName, lastName, email, password) values (?, ?, ?, ?)",
+        return jdbcTemplate.update("insert into customer (first_name, last_name, email, password) values (?, ?, ?, ?)",
                 customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPassword());
     }
 
     @Override
     public int update(UpdateCustomer customer) {
-        return jdbcTemplate.update("update customer set firstname=?, lastname=?, email=?, password=?, balance=? where customerid = ?",
+        return jdbcTemplate.update("update customer set first_name=?, last_name=?, email=?, password=?, balance=? where customer_id = ?",
                 customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPassword(), customer.getBalance(), customer.getCustomerId());
     }
 
     @Override
     public int deleteById(Long id) {
-        return jdbcTemplate.update("delete from customer where customerid=?", id);
+        return jdbcTemplate.update("delete from customer where customer_id=?", id);
     }
 
     @Override
     public List<Customer> findAll() {
-        return jdbcTemplate.query("select * from customer", (rs, rowNum) -> new Customer(rs.getLong("customerid")
-                , rs.getString("firstname")
-                , rs.getString("lastname")
+        return jdbcTemplate.query("select * from customer", (rs, rowNum) ->
+                new Customer(rs.getLong("customer_id")
+                , rs.getString("first_name")
+                , rs.getString("last_name")
                 , rs.getString("email")
                 , rs.getString("password")
                 , rs.getBigDecimal("balance")
@@ -52,11 +53,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Optional<Customer> findById(Long id) {
-        return jdbcTemplate.queryForObject("select * from customer where customerid=?", new Object[]{id},
+        return jdbcTemplate.queryForObject("select * from customer where customer_id=?", new Object[]{id},
                 (rs, row)->Optional.of(
-                        new Customer(rs.getLong("customerid")
-                                , rs.getString("firstname")
-                                , rs.getString("lastname")
+                        new Customer(rs.getLong("customer_id")
+                                , rs.getString("first_name")
+                                , rs.getString("last_name")
                                 , rs.getString("email")
                                 , rs.getString("password")
                                 , rs.getBigDecimal("balance")
@@ -67,7 +68,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Long getMaxId() {
-        return jdbcTemplate.queryForObject("select MAX(customerid) from customer", Long.class);
+        return jdbcTemplate.queryForObject("select MAX(customer_id) from customer", Long.class);
     }
 
 }

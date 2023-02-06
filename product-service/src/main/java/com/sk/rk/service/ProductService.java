@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.MalformedParameterizedTypeException;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -26,7 +28,14 @@ public class ProductService {
     }
 
     public List<Product> searchProduct(Long productId, String productName) {
-        return repository.findByProductIdAndProductName(productId, productName);
+        List<Map<String, Object>> products = repository.findProduct(productId, productName);
+        return products.stream().map(p->{
+            return new Product(
+                    Long.parseLong(p.get("product_id").toString())
+                    , p.get("product_name").toString()
+                    , new BigDecimal(p.get("price").toString())
+                    , Integer.getInteger(p.get("quantity").toString()));
+        }).collect(Collectors.toList());
     }
 
     public Product addProduct(AddProduct product) {

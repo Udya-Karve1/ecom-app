@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +27,10 @@ public class Product {
         this.quantity = quantity;
     }
 
-
+    public Product(Long productId, String productName, BigDecimal price, Integer quantity) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }

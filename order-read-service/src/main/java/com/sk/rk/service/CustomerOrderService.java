@@ -23,4 +23,12 @@ public class CustomerOrderService {
     public List<CustomerOrder> searchCustomerOrder(CustomerOrderRequest request) throws JsonProcessingException {
         return repository.searchCustomerOrder(objectMapper.writeValueAsString(request));
     }
+
+    public void addOrder(CustomerOrder customerOrder) {
+        repository.save(customerOrder);
+    }
+
+    public void updateOrder(CustomerOrder customerOrder) {
+        repository.save(customerOrder);
+    }
 }

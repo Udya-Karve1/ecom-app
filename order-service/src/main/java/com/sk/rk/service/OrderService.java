@@ -1,5 +1,6 @@
 package com.sk.rk.service;
 
+import com.sk.rk.events.OrderCreatedEvent;
 import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.AddOrderRequest;
 import com.sk.rk.model.Order;
@@ -11,9 +12,13 @@ import java.sql.Timestamp;
 
 @Service
 public class OrderService {
+/*
 
     @Autowired
     private OrderRepository repository;
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
 
     public Order saveOrder(AddOrderRequest orderRequest) {
         Order order = Order.builder()
@@ -24,7 +29,11 @@ public class OrderService {
                 .dateUpdated(new Timestamp(System.currentTimeMillis()))
                 .build();
 
-        return repository.save(order);
+        Order orderCreated = repository.save(order);
+        kafkaProducer.publishMessageCreated(createOrderCreatedEvent(order));
+        KafkaProducer.publishMessageCompleted();
+
+        return order;
     }
 
 
@@ -40,5 +49,20 @@ public class OrderService {
 
         return repository.save(order);
     }
+
+    private OrderCreatedEvent createOrderCreatedEvent(Order order) {
+        OrderCreatedEvent createdEvent = new OrderCreatedEvent();
+        createdEvent.setOrderId(order.getOrderId());
+        createdEvent.setDateCreated(order.getDateCreated());
+        createdEvent.setDateUpdated(order.getDateUpdated());
+        createdEvent.setOrderStatus(order.getOrderStatus());
+        createdEvent.setProductId(order.getProductId());
+        createdEvent.setCustomerId(order.getCustomerId());
+
+        return createdEvent;
+    }
+
+    private OrderCompleted
+*/
 
 }

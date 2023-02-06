@@ -3,6 +3,7 @@ package com.sk.rk.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sk.rk.events.OrderAddUpdateRequest;
+import com.sk.rk.events.OrderCompletedEvent;
 import com.sk.rk.model.CustomerOrder;
 import com.sk.rk.repository.CustomerOrderRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -36,27 +37,27 @@ public class KafkaOrderListener {
     @Autowired
     private RestTemplate restTemplate;
 
-    @KafkaListener(topics = "OrderAddUpdateTopic", groupId = "group_id")
-    public void consume(OrderAddUpdateRequest orderAddUpdateRequest) throws JsonProcessingException, InterruptedException {
-        log.info("Received orderAddUpdateRequest: {}", objectMapper.writeValueAsString(orderAddUpdateRequest));
+    @KafkaListener(topics = "order_completed_event", groupId = "group_id")
+    public void consume(OrderCompletedEvent orderCompletedEvent) throws JsonProcessingException, InterruptedException {
+        log.info("Received orderAddUpdateRequest: {}", objectMapper.writeValueAsString(orderCompletedEvent));
 
-        List<CustomerOrder> customerOrders = repository.findByOrderId(orderAddUpdateRequest.getOrderId());
+        List<CustomerOrder> customerOrders = repository.findByOrderId(orderCompletedEvent.getOrderId());
 
         if(CollectionUtils.isEmpty(customerOrders)) {
-            repository.save(prepareEntityCustomerOrder(orderAddUpdateRequest, getOrderDetail(orderAddUpdateRequest)));
+            repository.save(prepareEntityCustomerOrder(orderCompletedEvent, getOrderDetail(orderCompletedEvent)));
         } else {
             repository.updateOrderStatus(customerOrders.get(0).getCustomerOrderId()
-                    , new Timestamp(System.currentTimeMillis()), orderAddUpdateRequest.getOrderStatus());
+                    , new Timestamp(System.currentTimeMillis()), orderCompletedEvent.getOrderStatus());
         }
     }
 
-    private CustomerOrder prepareEntityCustomerOrder(OrderAddUpdateRequest orderAddUpdateRequest, Map<String, Object> orderDetail) {
+    private CustomerOrder prepareEntityCustomerOrder(OrderCompletedEvent orderCompletedEvent, Map<String, Object> orderDetail) {
         CustomerOrder customerOrder = new CustomerOrder();
-        customerOrder.setCustomerId(orderAddUpdateRequest.getCustomerId());
-        customerOrder.setOrderStatus(orderAddUpdateRequest.getOrderStatus());
-        customerOrder.setProductId(orderAddUpdateRequest.getProductId());
-        customerOrder.setDateCreated(orderAddUpdateRequest.getDateCreated());
-        customerOrder.setDateUpdated(orderAddUpdateRequest.getDateUpdated());
+        customerOrder.setCustomerId(orderCompletedEvent.getCustomerId());
+        customerOrder.setOrderStatus(orderCompletedEvent.getOrderStatus());
+        customerOrder.setProductId(orderCompletedEvent.getProductId());
+        customerOrder.setDateCreated(orderCompletedEvent.getDateCreated());
+        customerOrder.setDateUpdated(orderCompletedEvent.getDateUpdated());
 
         customerOrder.setFirstName(orderDetail.get("firstName").toString());
         customerOrder.setLastName(orderDetail.get("lastName").toString());
@@ -70,18 +71,18 @@ public class KafkaOrderListener {
     }
 
 
-    private Map<String, Object> getOrderDetail(OrderAddUpdateRequest orderAddUpdateRequest) throws InterruptedException {
+    private Map<String, Object> getOrderDetail(OrderCompletedEvent orderCompletedEvent) throws InterruptedException {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         List<Callable<Map<String, Object>>> callables = Arrays.asList(
                 () -> {
                     ResponseEntity customerResponse = restTemplate.exchange(
-                            "CUSTOMER-SRVICE/V1/API/" + orderAddUpdateRequest.getCustomerId()
+                            "CUSTOMER-SRVICE/V1/API/" + orderCompletedEvent.getCustomerId()
                             , HttpMethod.GET, prepareHttpEntity(), ResponseEntity.class);
                     return Collections.emptyMap();
                 },
                 ()-> {
                     ResponseEntity productResponse = restTemplate.exchange(
-                            "PRODUCT-SRVICE/V1/API/" + orderAddUpdateRequest.getProductId()
+                            "PRODUCT-SRVICE/V1/API/" + orderCompletedEvent.getProductId()
                             , HttpMethod.GET, prepareHttpEntity(), ResponseEntity.class);
                     return Collections.emptyMap();
                 }

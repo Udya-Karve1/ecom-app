@@ -19,3 +19,16 @@ Insert into product (product_name, price, quantity) values('Bluetooth mouse', 55
 
 
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `udp_search_product`(IN productId bigint, IN productName varchar(45))
+BEGIN
+	select * from product p where
+    (productId is null or p.product_id = productId)
+    and
+    (productName is null or p.product_name=productName);
+
+END$$
+DELIMITER ;
+
+
+

@@ -29,8 +29,29 @@ public class OrchestratorService {
 
     public Mono<OrchestratorResponseDTO> orderProduct(final OrchestratorRequestDTO requestDTO){
         Workflow orderWorkflow = this.getOrderWorkflow(requestDTO);
-        return Flux.fromStream(() -> orderWorkflow.getSteps().stream())
+
+        return Flux.fromStream(orderWorkflow.getSteps().stream())
                 .flatMap(WorkflowStep::process)
+                        .handle(((aBoolean, synchronousSink)->{
+                            if(aBoolean)
+                                synchronousSink.next(true);
+                            else
+                                synchronousSink.error(new WorkflowException("Create order failed"));
+                        }))
+                                .then(Mono.fromCallable(() -> getResponseDTO(requestDTO, OrderStatus.ORDER_COMPLETED)))
+                                        .onErrorResume(ex->this.revertOrder(orderWorkflow, requestDTO));
+
+/*
+        return Flux.fromStream(() -> orderWorkflow.getSteps().stream())
+
+                .flatMap(workflowStep -> {
+                    return workflowStep.process();
+                })
+                */
+/*.flatMap(workflowStep -> {
+                    return workflowStep.process();
+                })*//*
+
                 .handle(((aBoolean, synchronousSink) -> {
                     if(aBoolean)
                         synchronousSink.next(true);
@@ -39,7 +60,13 @@ public class OrchestratorService {
                 }))
                 .then(Mono.fromCallable(() -> getResponseDTO(requestDTO, OrderStatus.ORDER_COMPLETED)))
                 .onErrorResume(ex -> this.revertOrder(orderWorkflow, requestDTO));
+*/
 
+
+
+
+
+        return Mono.fromCallable(() -> getResponseDTO(requestDTO, OrderStatus.ORDER_COMPLETED));
     }
 
     private Mono<OrchestratorResponseDTO> revertOrder(final Workflow workflow, final OrchestratorRequestDTO requestDTO){

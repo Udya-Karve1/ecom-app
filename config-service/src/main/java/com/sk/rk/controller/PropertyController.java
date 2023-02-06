@@ -39,7 +39,6 @@ public class PropertyController {
         return new ResponseEntity(profileService.getAllProfiles(), HttpStatus.OK);
     }
 
-
     @DeleteMapping("/profile/{profile-id}")
     public ResponseEntity<String> deleteProfile(
             @PathVariable("profile-id") Long profileId
@@ -129,5 +128,4 @@ public class PropertyController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 }

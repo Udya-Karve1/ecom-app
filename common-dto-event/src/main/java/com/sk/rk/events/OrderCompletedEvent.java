@@ -1,23 +1,14 @@
-package com.sk.rk.model;
+package com.sk.rk.events;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-@Entity
-@Table(name = "order_table")
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrderCompletedEvent {
+    private String status;
     private Long orderId;
     private Long customerId;
     private Long productId;
