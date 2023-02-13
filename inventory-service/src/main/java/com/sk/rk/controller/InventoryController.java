@@ -1,6 +1,9 @@
 package com.sk.rk.controller;
 
 import com.sk.rk.service.InventoryService;
+import org.glassfish.hk2.api.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/api/inventory")
 public class InventoryController {
 
+    Logger log = LoggerFactory.getLogger(InventoryController.class);
+
     @Autowired
     private InventoryService inventoryService;
 
     @GetMapping("/{product-id}")
     public Object getInventoryQuantity(@PathVariable("product-id")Long productId) {
+        log.info("Inventory endpoint called ..........");
         return inventoryService.getQuantity(productId);
     }
 

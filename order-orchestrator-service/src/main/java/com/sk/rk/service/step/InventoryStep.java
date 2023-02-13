@@ -5,10 +5,12 @@ import com.sk.rk.events.InventoryResponseDTO;
 import com.sk.rk.events.enums.InventoryStatus;
 import com.sk.rk.service.WorkflowStep;
 import com.sk.rk.service.WorkflowStepStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 public class InventoryStep implements WorkflowStep {
 
     private final WebClient webClient;
@@ -27,6 +29,7 @@ public class InventoryStep implements WorkflowStep {
 
     @Override
     public Mono<Boolean> process() {
+        log.info("Inventory process called .................");
         return this.webClient
                 .post()
                 .uri("/inventory/deduct")

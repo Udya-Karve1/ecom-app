@@ -15,10 +15,10 @@ public class OrchestratorConfig {
     @Autowired
     private OrchestratorService orchestratorService;
 
-    @Bean
+/*    @Bean
     public Function<Flux<OrchestratorRequestDTO>, Flux<OrchestratorResponseDTO>> processor(){
         return flux -> flux
                 .flatMap(dto -> this.orchestratorService.orderProduct(dto))
-                .doOnNext(dto -> System.out.println("Status : " + dto.getStatus()));
-    }
+                .doOnNext(dto -> System.out.println("Status123 : " + dto.getStatus()));
+    }*/
 }

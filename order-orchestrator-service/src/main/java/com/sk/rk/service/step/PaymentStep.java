@@ -5,10 +5,12 @@ import com.sk.rk.events.PaymentResponseDTO;
 import com.sk.rk.events.enums.PaymentStatus;
 import com.sk.rk.service.WorkflowStep;
 import com.sk.rk.service.WorkflowStepStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 public class PaymentStep implements WorkflowStep {
     private final WebClient webClient;
     private final PaymentRequestDTO requestDTO;
@@ -26,9 +28,10 @@ public class PaymentStep implements WorkflowStep {
 
     @Override
     public Mono<Boolean> process() {
+        log.info("Payment process called .................");
         return this.webClient
                 .post()
-                .uri("/payment/debit")
+                .uri("/debit")
                 .body(BodyInserters.fromValue(this.requestDTO))
                 .retrieve()
                 .bodyToMono(PaymentResponseDTO.class)
@@ -40,7 +43,7 @@ public class PaymentStep implements WorkflowStep {
     public Mono<Boolean> revert() {
         return this.webClient
                 .post()
-                .uri("/payment/credit")
+                .uri("/credit")
                 .body(BodyInserters.fromValue(this.requestDTO))
                 .retrieve()
                 .bodyToMono(Void.class)

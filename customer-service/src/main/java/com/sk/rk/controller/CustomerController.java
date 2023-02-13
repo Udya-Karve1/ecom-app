@@ -1,5 +1,6 @@
 package com.sk.rk.controller;
 
+import com.sk.rk.events.PaymentRequestDTO;
 import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.entity.Customer;
 import com.sk.rk.model.request.AddCustomer;
@@ -48,4 +49,14 @@ public class CustomerController {
     public ResponseEntity getBalance(@PathVariable("customer-id")Long customerId) throws BaseException {
         return new ResponseEntity<>(customerService.getBalance(customerId), HttpStatus.OK);
     }
+    @PostMapping("/balance/debit")
+    public ResponseEntity<Map> debitBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
+        return new ResponseEntity<>(customerService.debitBalance(requestDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/balance/credit")
+    public ResponseEntity<Map> creditBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
+        return new ResponseEntity<>(customerService.creditBalance(requestDTO), HttpStatus.OK);
+    }
+
 }

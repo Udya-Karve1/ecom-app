@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +70,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public Long getMaxId() {
         return jdbcTemplate.queryForObject("select MAX(customer_id) from customer", Long.class);
+    }
+
+    public void creditAmount(Long customerId, BigDecimal amount) {
+
     }
 
 }

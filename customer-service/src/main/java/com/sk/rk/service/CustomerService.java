@@ -1,5 +1,6 @@
 package com.sk.rk.service;
 
+import com.sk.rk.events.PaymentRequestDTO;
 import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.entity.Customer;
 import com.sk.rk.model.request.AddCustomer;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Map;
 
@@ -58,5 +60,33 @@ public class CustomerService {
         }catch (BaseException ex) {
             throw new BaseException(400, "Error accessing customer account detail.");
         }
+    }
+
+    public Map<String, String> debitBalance(PaymentRequestDTO requestDTO) throws BaseException {
+        Customer customer = getCustomerById(requestDTO.getCustomerId());
+        customer.setBalance(customer.getBalance().subtract(requestDTO.getAmount()));
+
+        customerRepository.update(createEntityUpdateCustomer(customer));
+        return Collections.singletonMap("status", "Balance debited successfully.");
+    }
+
+    public Map<String, String> creditBalance(PaymentRequestDTO requestDTO) throws BaseException {
+        Customer customer = getCustomerById(requestDTO.getCustomerId());
+        customer.setBalance(customer.getBalance().add(requestDTO.getAmount()));
+
+        customerRepository.update(createEntityUpdateCustomer(customer));
+        return Collections.singletonMap("status", "Balance credited successfully.");
+    }
+
+    private UpdateCustomer createEntityUpdateCustomer(Customer customer) {
+        UpdateCustomer updateCustomer = new UpdateCustomer();
+        updateCustomer.setCustomerId(customer.getCustomerId());
+        updateCustomer.setBalance(customer.getBalance());
+        updateCustomer.setEmail(customer.getEmail());
+        updateCustomer.setPassword(customer.getPassword());
+        updateCustomer.setLastName(customer.getLastName());
+        updateCustomer.setFirstName(customer.getFirstName());
+
+        return updateCustomer;
     }
 }

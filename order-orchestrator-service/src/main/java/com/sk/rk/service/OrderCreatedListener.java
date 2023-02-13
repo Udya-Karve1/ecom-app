@@ -14,7 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Mono;
 
+import javax.management.monitor.MonitorNotification;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
@@ -35,6 +37,11 @@ public class OrderCreatedListener {
     public void consumer(OrderCreatedEvent order) throws JsonProcessingException {
         log.info("consumer: {}", objectMapper.writeValueAsString(order));
 
+        Mono<OrderCreatedEvent> orderCreatedMono = Mono.just(order);
+
+        OrchestratorRequestDTO requestDTO = createEntityOrchestratorRequestDTO(order);
+
+
         orchestratorService.orderProduct(createEntityOrchestratorRequestDTO(order));
     }
 
@@ -47,4 +54,6 @@ public class OrderCreatedListener {
 
         return requestDTO;
     }
+
+
 }

@@ -70,7 +70,7 @@ public class OrderConsumer {
         customerOrder.setLastName(customerData.get("lastName").toString());
         customerOrder.setEmail(customerData.get("email").toString());
 
-        Map<String, Object> productData = (Map<String, Object>) customerResponse.get("data");
+        Map<String, Object> productData = (Map<String, Object>) productResponse.get("data");
         customerOrder.setProductName(productData.get("productName").toString());
         customerOrder.setPrice(new BigDecimal(productData.get("price").toString()));
 

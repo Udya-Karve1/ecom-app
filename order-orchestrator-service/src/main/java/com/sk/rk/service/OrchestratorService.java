@@ -27,11 +27,30 @@ public class OrchestratorService {
     @Qualifier("inventory")
     private WebClient inventoryClient;
 
-    public Mono<OrchestratorResponseDTO> orderProduct(final OrchestratorRequestDTO requestDTO){
+
+    public OrchestratorResponseDTO orderProduct(OrchestratorRequestDTO requestDTO){
         Workflow orderWorkflow = this.getOrderWorkflow(requestDTO);
+        List<WorkflowStep> workflowStepList = orderWorkflow.getSteps();
+
+        for(int i=0; i<workflowStepList.size(); i++) {
+            try {
+                workflowStepList.get(i).process();
+            } catch (Exception ex) {
+                workflowStepList.stream().forEach(WorkflowStep::revert);
+            }
+        }
+
+        return this.getResponseDTO(requestDTO, OrderStatus.ORDER_COMPLETED);
+
+    }
+
+    public Mono<OrchestratorResponseDTO> orderProductMono(final OrchestratorRequestDTO requestDTO){
+        Workflow orderWorkflow = this.getOrderWorkflow(requestDTO);
+
 
         return Flux.fromStream(orderWorkflow.getSteps().stream())
                 .flatMap(WorkflowStep::process)
+                .log()
                         .handle(((aBoolean, synchronousSink)->{
                             if(aBoolean)
                                 synchronousSink.next(true);
@@ -40,33 +59,6 @@ public class OrchestratorService {
                         }))
                                 .then(Mono.fromCallable(() -> getResponseDTO(requestDTO, OrderStatus.ORDER_COMPLETED)))
                                         .onErrorResume(ex->this.revertOrder(orderWorkflow, requestDTO));
-
-/*
-        return Flux.fromStream(() -> orderWorkflow.getSteps().stream())
-
-                .flatMap(workflowStep -> {
-                    return workflowStep.process();
-                })
-                */
-/*.flatMap(workflowStep -> {
-                    return workflowStep.process();
-                })*//*
-
-                .handle(((aBoolean, synchronousSink) -> {
-                    if(aBoolean)
-                        synchronousSink.next(true);
-                    else
-                        synchronousSink.error(new WorkflowException("create order failed!"));
-                }))
-                .then(Mono.fromCallable(() -> getResponseDTO(requestDTO, OrderStatus.ORDER_COMPLETED)))
-                .onErrorResume(ex -> this.revertOrder(orderWorkflow, requestDTO));
-*/
-
-
-
-
-
-        return Mono.fromCallable(() -> getResponseDTO(requestDTO, OrderStatus.ORDER_COMPLETED));
     }
 
     private Mono<OrchestratorResponseDTO> revertOrder(final Workflow workflow, final OrchestratorRequestDTO requestDTO){
@@ -81,6 +73,11 @@ public class OrchestratorService {
         WorkflowStep paymentStep = new PaymentStep(this.paymentClient, this.getPaymentRequestDTO(requestDTO));
         WorkflowStep inventoryStep = new InventoryStep(this.inventoryClient, this.getInventoryRequestDTO(requestDTO));
         return new OrderWorkflow(List.of(paymentStep, inventoryStep));
+    }
+    private Flux<WorkflowStep> getOrderWorkflowFlux(OrchestratorRequestDTO requestDTO){
+        WorkflowStep paymentStep = new PaymentStep(this.paymentClient, this.getPaymentRequestDTO(requestDTO));
+        WorkflowStep inventoryStep = new InventoryStep(this.inventoryClient, this.getInventoryRequestDTO(requestDTO));
+        return  Flux.just(paymentStep, inventoryStep);
     }
 
     private OrchestratorResponseDTO getResponseDTO(OrchestratorRequestDTO requestDTO, OrderStatus status){
