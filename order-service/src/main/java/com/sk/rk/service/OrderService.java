@@ -1,14 +1,8 @@
 package com.sk.rk.service;
 
-import com.sk.rk.events.OrderCreatedEvent;
-import com.sk.rk.exception.BaseException;
-import com.sk.rk.model.AddOrderRequest;
-import com.sk.rk.model.Order;
-import com.sk.rk.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 
 @Service
 public class OrderService {

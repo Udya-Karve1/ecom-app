@@ -70,13 +70,6 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             @Param("ProfileId") Long profileId
     );
 
-/*
-    List<Property> findByProfileId(Long profileId);
-
-    List<Property> findByApplicationId(Long applicationId);
-
-*/
-//********************************************************************* ///
 
     List<Property> findByApplicationAndProfile(Application application, Profile profile);
 

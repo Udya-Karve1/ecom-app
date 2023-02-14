@@ -14,10 +14,10 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_id")
-    Long profileId;
+    private Long profileId;
 
     @Column(name = "profile")
-    String profile;
+    private String profile;
 
     @OneToMany(mappedBy = "profile")
     private List<Property> propertyList = new ArrayList<>();

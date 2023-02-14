@@ -31,12 +31,12 @@ public class PropertyController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Map<String, Object>>> getAllProperty() {
-        return new ResponseEntity(propertyService.getAllProperties(), HttpStatus.OK);
+        return new ResponseEntity<>(propertyService.getAllProperties(), HttpStatus.OK);
     }
 
     @GetMapping("/profile/all")
     public ResponseEntity<List<Map<String, Object>>> getAllProfile() {
-        return new ResponseEntity(profileService.getAllProfiles(), HttpStatus.OK);
+        return new ResponseEntity<>(profileService.getAllProfiles(), HttpStatus.OK);
     }
 
     @DeleteMapping("/profile/{profile-id}")
@@ -45,7 +45,7 @@ public class PropertyController {
     ) {
         try {
             profileService.deleteProfile(profileId);
-            return new ResponseEntity("Profile deleted.", HttpStatus.OK);
+            return new ResponseEntity<>("Profile deleted.", HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -60,7 +60,7 @@ public class PropertyController {
     ) {
         try {
             applicationService.deleteApplication(applicationId);
-            return new ResponseEntity("Application deleted.", HttpStatus.OK);
+            return new ResponseEntity<>("Application deleted.", HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -70,7 +70,7 @@ public class PropertyController {
 
     @GetMapping("/application/all")
     public ResponseEntity<List<Map<String, Object>>> getAllApplication() {
-        return new ResponseEntity(applicationService.getAllApplication(), HttpStatus.OK);
+        return new ResponseEntity<>(applicationService.getAllApplication(), HttpStatus.OK);
     }
 
     @PostMapping("/application")
@@ -107,14 +107,14 @@ public class PropertyController {
     public ResponseEntity<Profile> addProfile(
             @RequestBody Profile profileEntity
     ) throws Exception {
-        return new ResponseEntity(profileService.saveProfile(profileEntity), HttpStatus.OK);
+        return new ResponseEntity<>(profileService.saveProfile(profileEntity), HttpStatus.OK);
     }
 
     @PutMapping("/profile")
     public ResponseEntity<Profile> editProfile(
             @RequestBody Profile profileEntity
     ) throws Exception {
-        return new ResponseEntity(profileService.updateProfile(profileEntity), HttpStatus.OK);
+        return new ResponseEntity<>(profileService.updateProfile(profileEntity), HttpStatus.OK);
     }
 
     @DeleteMapping("/{property-id}")
@@ -123,7 +123,7 @@ public class PropertyController {
     ) {
         try {
             propertyService.deleteProperty(propertyId);
-            return new ResponseEntity("Property deleted.", HttpStatus.OK);
+            return new ResponseEntity<>("Property deleted.", HttpStatus.OK);
         } catch(Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }

@@ -49,14 +49,14 @@ public class ProductController {
 
     @DeleteMapping("/{product-id}")
     @Operation(summary = "Delete product.")
-    public ResponseEntity<String> deleteProductById(@PathVariable("product-id") Long productId) throws BaseException {
+    public ResponseEntity<String> deleteProductById(@PathVariable("product-id") Long productId) {
         service.deleteProduct(productId);
         return new ResponseEntity<>("Product deleted", HttpStatus.OK);
     }
 
     @GetMapping("/inventory/quantity/{product-id}")
     @Operation(summary = "Get product quantity.")
-    public ResponseEntity getProductQuantity(
+    public ResponseEntity<Map<String, Object>> getProductQuantity(
             @PathVariable("product-id") Long productId) throws BaseException {
         return new ResponseEntity<>(service.getQuantity(productId), HttpStatus.OK);
     }

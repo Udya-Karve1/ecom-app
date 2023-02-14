@@ -2,7 +2,6 @@ package com.sk.rk.model;
 
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class PropertyAddRequest {

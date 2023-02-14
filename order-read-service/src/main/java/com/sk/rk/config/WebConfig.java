@@ -1,6 +1,5 @@
 package com.sk.rk.config;
 
-import com.sk.rk.events.OrderAddUpdateRequest;
 import com.sk.rk.events.OrderCompletedEvent;
 import com.sk.rk.events.OrderCreatedEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

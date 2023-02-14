@@ -1,6 +1,5 @@
 package com.sk.rk.service;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.entity.Product;
 import com.sk.rk.model.request.AddProduct;
@@ -10,7 +9,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +26,14 @@ public class ProductService {
 
     public List<Product> searchProduct(Long productId, String productName) {
         List<Map<String, Object>> products = repository.findProduct(productId, productName);
-        return products.stream().map(p->{
-            return new Product(
+
+        return products.stream().map(p->
+             new Product(
                     Long.parseLong(p.get("product_id").toString())
                     , p.get("product_name").toString()
-                    , new Double(p.get("price").toString())
-                    , Integer.getInteger(p.get("quantity").toString()));
-        }).collect(Collectors.toList());
+                    , Double.valueOf(p.get("price").toString())
+                    , Integer.getInteger(p.get("quantity").toString()))
+        ).collect(Collectors.toList());
     }
 
     public Product addProduct(AddProduct product) {

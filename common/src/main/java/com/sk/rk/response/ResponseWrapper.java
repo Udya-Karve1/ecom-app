@@ -30,11 +30,10 @@ public class ResponseWrapper implements ResponseBodyAdvice {
     @Override
     public boolean supports(MethodParameter methodParameter, Class converterType) {
         String classPackage = methodParameter.getContainingClass().getPackage().getName();
-        /*return
+        return
                !classPackage.startsWith("org.springdoc")
                 && !classPackage.startsWith("org.springframework.boot.actuate")
-                && !converterType.getName().endsWith("ResourceHttpMessageConverter");*/
-        return true;
+                && !converterType.getName().endsWith("ResourceHttpMessageConverter");
     }
 
     @Override

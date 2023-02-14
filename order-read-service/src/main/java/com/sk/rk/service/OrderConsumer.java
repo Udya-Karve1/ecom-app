@@ -47,7 +47,7 @@ public class OrderConsumer {
         log.info("consumer: {}", objectMapper.writeValueAsString(order));
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         Map<String, Object>  customerResponse = restTemplate.exchange(getCustomerUrl+"/" + order.getCustomerId(), HttpMethod.GET, entity, Map.class).getBody();
         Map<String, Object>  productResponse = restTemplate.exchange(getProductUrl+"/" + order.getProductId(), HttpMethod.GET, entity, Map.class).getBody();
