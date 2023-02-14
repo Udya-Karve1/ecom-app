@@ -6,6 +6,7 @@ import com.sk.rk.model.entity.Customer;
 import com.sk.rk.model.request.AddCustomer;
 import com.sk.rk.model.request.UpdateCustomer;
 import com.sk.rk.service.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/api/customer")
+@Slf4j
 public class CustomerController {
 
     private CustomerService customerService;
@@ -47,15 +49,18 @@ public class CustomerController {
 
     @GetMapping("/balance/{customer-id}")
     public ResponseEntity getBalance(@PathVariable("customer-id")Long customerId) throws BaseException {
+        log.info("customer controller balance called.......");
         return new ResponseEntity<>(customerService.getBalance(customerId), HttpStatus.OK);
     }
     @PostMapping("/balance/debit")
     public ResponseEntity<Map> debitBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
+        log.info("customer controller debit called.......");
         return new ResponseEntity<>(customerService.debitBalance(requestDTO), HttpStatus.OK);
     }
 
     @PostMapping("/balance/credit")
     public ResponseEntity<Map> creditBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
+        log.info("customer controller credit called.......");
         return new ResponseEntity<>(customerService.creditBalance(requestDTO), HttpStatus.OK);
     }
 

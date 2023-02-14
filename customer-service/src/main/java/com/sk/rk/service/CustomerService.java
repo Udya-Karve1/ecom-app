@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Map;
 
@@ -64,7 +63,7 @@ public class CustomerService {
 
     public Map<String, String> debitBalance(PaymentRequestDTO requestDTO) throws BaseException {
         Customer customer = getCustomerById(requestDTO.getCustomerId());
-        customer.setBalance(customer.getBalance().subtract(requestDTO.getAmount()));
+        customer.setBalance(customer.getBalance() - requestDTO.getAmount());
 
         customerRepository.update(createEntityUpdateCustomer(customer));
         return Collections.singletonMap("status", "Balance debited successfully.");
@@ -72,7 +71,7 @@ public class CustomerService {
 
     public Map<String, String> creditBalance(PaymentRequestDTO requestDTO) throws BaseException {
         Customer customer = getCustomerById(requestDTO.getCustomerId());
-        customer.setBalance(customer.getBalance().add(requestDTO.getAmount()));
+        customer.setBalance(customer.getBalance() + requestDTO.getAmount());
 
         customerRepository.update(createEntityUpdateCustomer(customer));
         return Collections.singletonMap("status", "Balance credited successfully.");

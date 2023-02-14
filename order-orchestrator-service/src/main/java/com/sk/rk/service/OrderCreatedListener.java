@@ -6,20 +6,10 @@ import com.sk.rk.events.OrchestratorRequestDTO;
 import com.sk.rk.events.OrderCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Mono;
 
-import javax.management.monitor.MonitorNotification;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -50,10 +40,8 @@ public class OrderCreatedListener {
         requestDTO.setOrderId(order.getOrderId());
         requestDTO.setCustomerId(order.getCustomerId());
         requestDTO.setProductId(order.getProductId());
-        requestDTO.setAmount(new BigDecimal(100.25));
+        requestDTO.setAmount(new Double(100.25));
 
         return requestDTO;
     }
-
-
 }

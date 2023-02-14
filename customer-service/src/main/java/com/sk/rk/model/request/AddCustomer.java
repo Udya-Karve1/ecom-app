@@ -2,7 +2,6 @@ package com.sk.rk.model.request;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 
 @Data
 public class AddCustomer {
@@ -10,5 +9,5 @@ public class AddCustomer {
     private String lastName;
     private String email;
     private String password;
-    private BigDecimal balance;
+    private Double balance;
 }

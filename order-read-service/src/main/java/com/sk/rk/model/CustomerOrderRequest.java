@@ -2,7 +2,6 @@ package com.sk.rk.model;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -16,7 +15,7 @@ public class CustomerOrderRequest {
 
     private Long productId;
     private String productName;
-    private BigDecimal price;
+    private Double price;
 
     private Long orderId;
     private String orderStatus;

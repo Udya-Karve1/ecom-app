@@ -28,6 +28,7 @@ public class InventoryController {
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity
     ){
+        log.info("inventory decrease called............");
         return inventoryService.decreaseQuantity(productId, quantity);
     }
 
@@ -36,6 +37,7 @@ public class InventoryController {
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity
     ){
+        log.info("inventory increase called............");
         return inventoryService.increaseQuantity(productId, quantity);
     }
 }

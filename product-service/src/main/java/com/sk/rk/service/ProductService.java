@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.MalformedParameterizedTypeException;
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class ProductService {
             return new Product(
                     Long.parseLong(p.get("product_id").toString())
                     , p.get("product_name").toString()
-                    , new BigDecimal(p.get("price").toString())
+                    , new Double(p.get("price").toString())
                     , Integer.getInteger(p.get("quantity").toString()));
         }).collect(Collectors.toList());
     }

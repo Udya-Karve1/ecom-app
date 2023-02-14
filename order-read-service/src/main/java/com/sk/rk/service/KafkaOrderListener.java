@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -64,7 +63,7 @@ public class KafkaOrderListener {
         customerOrder.setEmail(orderDetail.get("email").toString());
 
         customerOrder.setProductName(orderDetail.get("productName").toString());
-        customerOrder.setPrice(new BigDecimal(orderDetail.get("price").toString()));
+        customerOrder.setPrice(new Double(orderDetail.get("price").toString()));
 
         return customerOrder;
 

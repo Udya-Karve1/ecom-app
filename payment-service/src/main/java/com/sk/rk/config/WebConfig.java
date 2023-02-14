@@ -8,23 +8,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-@LoadBalancerClient(name = "CUSTOMER-SERVICE")
 public class WebConfig {
 
     @Value("${customer.bank.url}")
     private String baseUrl;
 
-/*
-    @LoadBalanced
-    @Bean
+    @Bean()
     public WebClient webClient() {
         return WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
     }
-*/
 
-    @LoadBalanced
     @Bean
     WebClient.Builder webClientBuilder() {
         return WebClient.builder();

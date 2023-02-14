@@ -3,7 +3,6 @@ package com.sk.rk.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -21,7 +20,7 @@ public class CustomerOrder {
 
     private Long productId;
     private String productName;
-    private BigDecimal price;
+    private Double price;
 
     private Long orderId;
     private String orderStatus;

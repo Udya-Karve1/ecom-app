@@ -4,11 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -18,16 +15,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     private String productName;
-    private BigDecimal price;
+    private Double price;
 
     private Integer quantity;
-    public Product(String productName, BigDecimal price, Integer quantity) {
+    public Product(String productName, Double price, Integer quantity) {
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public Product(Long productId, String productName, BigDecimal price, Integer quantity) {
+    public Product(Long productId, String productName, Double price, Integer quantity) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;

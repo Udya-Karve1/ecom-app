@@ -39,7 +39,6 @@ public class WebConfig {
 
 
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        //config.put(ProducerConfig.KEY);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
         Map<String, Object> props = new HashMap<>();

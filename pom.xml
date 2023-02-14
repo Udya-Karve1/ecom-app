@@ -26,9 +26,10 @@
         <module>order-orchestrator-service</module>
         <module>config-service</module>
         <module>common-dto-event</module>
-        <module>gateway-service</module>
+        <!--<module>gateway-service-old</module>-->
         <module>vendor-service</module>
         <module>authorization-service</module>
+        <module>gateway-service</module>
     </modules>
 
     <build>

@@ -6,13 +6,17 @@ import com.sk.rk.events.enums.PaymentStatus;
 import com.sk.rk.service.WorkflowStep;
 import com.sk.rk.service.WorkflowStepStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Slf4j
 public class PaymentStep implements WorkflowStep {
+
     private final WebClient webClient;
+
     private final PaymentRequestDTO requestDTO;
     private WorkflowStepStatus stepStatus = WorkflowStepStatus.PENDING;
 
@@ -29,25 +33,28 @@ public class PaymentStep implements WorkflowStep {
     @Override
     public Mono<Boolean> process() {
         log.info("Payment process called .................");
-        return this.webClient
-                .post()
+        this.webClient.post()
                 .uri("/debit")
-                .body(BodyInserters.fromValue(this.requestDTO))
+                .body(Mono.just(this.requestDTO), PaymentRequestDTO.class)
                 .retrieve()
                 .bodyToMono(PaymentResponseDTO.class)
-                .map(r -> r.getStatus().equals(PaymentStatus.PAYMENT_APPROVED))
-                .doOnNext(b -> this.stepStatus = b ? WorkflowStepStatus.COMPLETE : WorkflowStepStatus.FAILED);
+                .block();
+
+
+        return Mono.just(true);
     }
 
     @Override
     public Mono<Boolean> revert() {
-        return this.webClient
+        this.webClient
                 .post()
                 .uri("/credit")
-                .body(BodyInserters.fromValue(this.requestDTO))
+                .body(Mono.just(this.requestDTO), PaymentRequestDTO.class)
                 .retrieve()
                 .bodyToMono(Void.class)
-                .map(r -> true)
-                .onErrorReturn(false);
+                .block();
+
+        return Mono.just(true);
+
     }
 }

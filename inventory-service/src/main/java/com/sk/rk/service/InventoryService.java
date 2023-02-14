@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient("PRODUCT-SERVICE")
+@FeignClient("http://PRODUCT-SERVICE")
 public interface InventoryService {
 
     @GetMapping("/v1/api/product/inventory/quantity/{product-id}")

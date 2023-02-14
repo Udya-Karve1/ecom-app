@@ -23,7 +23,14 @@ public class PaymentController {
 
     @PostMapping("/debit")
     public Object debitPayment(@RequestBody PaymentRequestDTO requestDTO) {
+        log.info("payment controller debit called .........");
         return paymentService.debit(requestDTO);
+    }
+
+    @PostMapping("/credit")
+    public Object creditPayment(@RequestBody PaymentRequestDTO requestDTO) {
+        log.info("payment controller credit called .........");
+        return paymentService.credit(requestDTO);
     }
 
 

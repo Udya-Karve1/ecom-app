@@ -19,7 +19,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -72,7 +71,7 @@ public class OrderConsumer {
 
         Map<String, Object> productData = (Map<String, Object>) productResponse.get("data");
         customerOrder.setProductName(productData.get("productName").toString());
-        customerOrder.setPrice(new BigDecimal(productData.get("price").toString()));
+        customerOrder.setPrice(new Double(productData.get("price").toString()));
 
         return customerOrder;
     }
