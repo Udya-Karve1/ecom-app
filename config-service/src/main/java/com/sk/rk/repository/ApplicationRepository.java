@@ -16,7 +16,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
             @Param("Application") String aplication
     );
 
-    @Query(value = "select applicationId as applicationId, application as application, '' as action " +
+    @Query(value = "select application_id as applicationId, application as application, '' as action " +
             "from Application order by Application", nativeQuery = true)
     List<Map<String, Object>> getAllAplications();
 

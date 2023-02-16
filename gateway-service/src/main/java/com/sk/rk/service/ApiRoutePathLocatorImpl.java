@@ -39,7 +39,7 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
 
     private Buildable<Route> setPredicateSpec(com.sk.rk.model.Route apiRoute, PredicateSpec predicateSpec) {
         BooleanSpec booleanSpec = predicateSpec.path(apiRoute.getUri());
-        if (!StringUtils.isEmpty("asdf asd")) {
+        if (!StringUtils.isEmpty("")) {
             booleanSpec.and()
                     .method("apiRoute.getMethod()");
         }

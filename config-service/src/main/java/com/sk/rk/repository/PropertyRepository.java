@@ -38,11 +38,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     );
 
 
-    @Query(value = "select PR.Id, PR.Key, PR.Value, AP.Application, PRO.Profile, " +
-            "AP.ApplicationId, PR.ProfileId from Properties PR " +
-            "inner join Application AP on AP.ApplicationId = PR.ApplicationId " +
-            "inner join Profile PRO on PRO.ProfileId = PR.ProfileId " +
-            "order by Profile, Application", nativeQuery = true)
+    @Query(value = "select PR.id, PR.key, PR.value, AP.application, PRO.profile, AP.application_id, PR.profile_id from properties PR inner join Application AP on AP.application_id = PR.application_id inner join Profile PRO on PRO.profile_Id = PR.profile_id order by profile, application", nativeQuery = true)
     List<Map<String, Object>> serachProperties();
 
 
