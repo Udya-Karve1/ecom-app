@@ -26,7 +26,8 @@ public class OrderCreatedListener {
     @KafkaListener(topics = "${spring.topic.order-create}", groupId = "${spring.group-id.order-created}")
     public void consumer(OrderCreatedEvent order) throws JsonProcessingException {
         log.info("consumer: {}", objectMapper.writeValueAsString(order));
-        orchestratorService.orderProduct(createEntityOrchestratorRequestDTO(order));
+        //orchestratorService.orderProduct(createEntityOrchestratorRequestDTO(order));
+        orchestratorService.orderProductMono(createEntityOrchestratorRequestDTO(order));
     }
 
     private OrchestratorRequestDTO createEntityOrchestratorRequestDTO(OrderCreatedEvent order) {

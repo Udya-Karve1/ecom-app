@@ -62,19 +62,20 @@ public class ProductController {
     }
 
 
-    @PatchMapping("/quantity-decrease/{product-id}/{quantity}")
+    @PostMapping("/quantity-decrease/{product-id}/{quantity}")
     @Operation(summary = "Get product quantity.")
     public ResponseEntity<UpdateProduct> decreaseQuantity(
-            @RequestParam(name = "product-id", required = false) Long productId
-            , @RequestParam(name = "quantity", required = false) Integer quantity) throws BaseException {
+            @PathVariable(name = "product-id", required = false) Long productId
+            , @PathVariable(name = "quantity", required = false) Integer quantity) throws BaseException {
         return new ResponseEntity<>(service.decreaseQuantity(productId, quantity), HttpStatus.OK);
     }
 
-    @PatchMapping("/quantity-increase/{product-id}/{quantity}")
+    @PostMapping("/quantity-increase/{product-id}/{quantity}/{one}")
     @Operation(summary = "Get product quantity.")
     public ResponseEntity<UpdateProduct> increaseQuantity(
-            @RequestParam(name = "product-id", required = false) Long productId
-            , @RequestParam(name = "quantity", required = false) Integer quantity) throws BaseException {
+            @PathVariable(name = "product-id", required = false) Long productId
+            , @PathVariable(name = "quantity", required = false) Integer quantity
+            , @PathVariable(name = "one", required = false) Integer one) throws BaseException {
         return new ResponseEntity<>(service.increaseQuantity(productId, quantity), HttpStatus.OK);
     }
 }
