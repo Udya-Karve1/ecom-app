@@ -1,0 +1,97 @@
+<section class="content-header">
+    <div class="content-header-left">
+      <h1>Add/ Update Property</h1>
+    </div>
+   
+  </section>
+
+
+
+
+
+
+  
+<div class="form-container loader-inner">
+    <div class="create-form">
+        <form class="form-horizontal common-form" [formGroup]="propertyForm">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="">Key<span class="required">*</span></label>
+                        <div class="d-flex flex-fill">
+                            <mat-form-field class="w-100">
+                                <input matInput maxlength="100" autocomplete="off" formControlName="key">
+                                
+                                <mat-error *ngIf="propertyForm.controls['key'].hasError('required')">
+                                    Add key
+                                </mat-error>
+                            </mat-form-field>    
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="">Value<span class="required">*</span></label>
+                        <div class="d-flex flex-fill">
+                            <mat-form-field class="w-100">
+                                <input maxlength="100" formControlName="value" matInput autocomplete="off" />
+                                <mat-error *ngIf="propertyForm.controls['value'].hasError('required')">
+                                    Add value
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Application</label>
+                        <div class="d-flex flex-fill">
+                            <mat-form-field class="m-b-0">
+                                <mat-label>Application</mat-label>
+                                <mat-select formControlName="application_id" (valueChange)="applicationChange()">
+                                    <mat-option *ngFor="let item of applicationList" [value]="item.applicationId">
+                                       {{item.application}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Application</label>
+                        <div class="d-flex flex-fill">                            
+                            <mat-form-field class="m-b-0">
+                                <mat-label>Profile</mat-label>
+                                <mat-select formControlName="profile_id" (valueChange)="applicationChange()">
+                                    <mat-option *ngFor="let item of profileList" [value]="item.profileId">
+                                       {{item.profile}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="col-12">
+                    <button mat-stroked-button color="primary"  (click)="saveProperty()" class="button button-primary button-large ">Save</button>&nbsp;
+                    <button mat-stroked-button type="button" mat-button class="button button-primary button-large m-l-15 gray-bg">Cancel</button>
+                </div>                
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
