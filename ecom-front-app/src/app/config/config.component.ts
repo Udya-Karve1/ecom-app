@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSelectChange } from '@angular/material/select';
-import { MatToolbar } from '@angular/material/toolbar';
-import { MatIcon } from '@angular/material/icon'
+import { AddEditPropertyComponent } from 'src/app/config/add-edit-property/add-edit-property.component'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {MatTable} from '@angular/material/table';
 
 import _ from "lodash";
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-config',
@@ -14,9 +16,10 @@ import _ from "lodash";
 })
 export class ConfigComponent implements OnInit {
 
-  constructor(private configSrvice: ConfigService) { }
+  constructor(private configSrvice: ConfigService, public dialog: MatDialog) { }
 
-  applicationList = []
+  applicationList = [];
+  propertyList = [];
   dataSource: MatTableDataSource<any>;
   dataSourceFilters: MatTableDataSource<any>;
 
@@ -25,6 +28,14 @@ export class ConfigComponent implements OnInit {
   applications = [];
   isApplication = false;
   isProperty = true;
+
+  selectedPropertyId: number;
+
+  totalRecords: number;
+  pageSize: number;
+  currentPage: number;
+
+  @ViewChild('propPaginator') paginator: MatPaginator;
 
   displayedColumns = [
     //"id", 
@@ -46,6 +57,7 @@ export class ConfigComponent implements OnInit {
 
     
   ngOnInit(): void {
+    this.currentPage = 1;
     this.getAllPropertyForApplication();
     
     this.getAllApplilcation();
@@ -100,12 +112,14 @@ export class ConfigComponent implements OnInit {
     this.configSrvice.getAllPropertyForApplication().subscribe((response:any)=>{
       this.dataSource = new MatTableDataSource(response);
       this.dataSourceFilters = new MatTableDataSource(response);
+      this.dataSourceFilters.paginator = this.paginator;
+      this.propertyList = response;
+
+      
 
       this.dataSourceFilters.filterPredicate = function (record, filter) {
         //debugger;
         var map = new Map(JSON.parse(filter));
-        
-        
         let isMatch = false;
         
         for (let [key, value] of map) {
@@ -125,6 +139,8 @@ export class ConfigComponent implements OnInit {
         }
         return isMatch;
       };
+
+      this.dataSourceFilters.paginator
   
     })
   }
@@ -150,24 +166,32 @@ export class ConfigComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    alert(event);
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 
   editProperty(propertyId) {
-    alert("Edit property " + propertyId);
+    this.selectedPropertyId = propertyId;
+    this.dialog.open(AddEditPropertyComponent, { data: {'propertyId': this.selectedPropertyId}, height: '450px', width: '600px'});
+
   }
 
   deleteProperty(propertyId) {
-    alert("Delete property " + propertyId);
   }
 
   appManagement() {
     this.isApplication = true;
     this.isProperty = false;
   }
+
+  propertyManagement() {
+    this.isApplication = false;
+    this.isProperty = true;
+
+  }
+
+  
 }
 
 

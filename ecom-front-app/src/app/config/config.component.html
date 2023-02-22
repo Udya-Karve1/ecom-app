@@ -15,6 +15,11 @@
             Application Management
         </button>
 
+        <button mat-stroked-button (click)="propertyManagement()" color="primary" aria-label="icon-button" value="Add Property">
+            Property Management
+        </button>
+        
+
     </mat-toolbar>
     <div id="div_app" *ngIf="isApplication">
         <app-application></app-application>    
@@ -34,7 +39,7 @@
           </mat-form-field>
           <br />
     
-        <table mat-table [dataSource]="dataSourceFilters" class="mat-elevation-z8" width="1200">
+        <table mat-table [dataSource]="dataSourceFilters" class="mat-elevation-z8" width="100%">
     
             <ng-container matColumnDef="application">
                 <th mat-header-cell *matHeaderCellDef> Application </th>
@@ -59,36 +64,75 @@
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element" > 
                     <i class="fa fa-edit"></i>
-                    <a (click)="editProperty(element.property_id)" href="javascript:;" class="edit">
+                    <a (click)="editProperty(element.id)" href="javascript:;" class="edit">
                         <mat-icon>edit</mat-icon>
                       </a>
                       &nbsp;
-                      <a (click)="deleteProperty(element.property_id);" href="javascript:;" class="delete">
+                      <a (click)="deleteProperty(element.id);" href="javascript:;" class="delete">
                         <mat-icon>delete_forever</mat-icon>
                       </a>
                 </td>
             </ng-container>
-    
-            
-        <!-- 
-            <ng-container matColumnDef="application_id">
-                <th mat-header-cell *matHeaderCellDef> Application ID </th>
-                <td mat-cell *matCellDef="let element"> {{element.application_id}} </td>
-            </ng-container>
-        
-            <ng-container matColumnDef="profile_id">
-                <th mat-header-cell *matHeaderCellDef> Profile ID</th>
-                <td mat-cell *matCellDef="let element"> {{element.profile_id}} </td>
-            </ng-container>
-             -->
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             
             <tr mat-row *matRowDef="let emprow; columns: displayedColumns"></tr> 
         </table>
     
+        <mat-paginator #propPaginator [length]="totalRecords"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="[10, 25, 100]"
+              aria-label="Select page">
+        </mat-paginator>
     </div>
 
+
+    {{pageSize}} {{ totalRecords }}
 </div>
 
   
       
+
+
+<hr />
+
+
+
+<div class="content p-0 background-none">
+    <div class="tile-container">
+      <div class="tile-body">
+        <div *ngFor="let element of propertyList" class="tile-box" [ngClass]="{'inactive-box' : element.isActive == false}">
+          <div class="metric-name">
+            <label>key</label>
+            <p>{{element.key}}</p>           
+          </div>
+          <div class="created-by">
+            <label>Value</label>
+            <p>{{element.value}}</p>
+          </div>
+
+          <div class="created-by">
+            <label>application</label>
+            <p>{{element.application}}</p>
+          </div>
+          
+          <div class="created-by">
+            <label>profile</label>
+            <p>{{element.profile}}</p>
+          </div>
+
+
+
+
+        
+      </div>
+      </div>
+    </div>
+    
+
+  </div>
+  
+
+
+
+

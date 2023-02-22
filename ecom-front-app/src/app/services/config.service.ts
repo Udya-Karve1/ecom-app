@@ -28,4 +28,9 @@ export class ConfigService {
             .pipe(map(response => {return response}));        
     }
 
+    getPropertyById(propertyId) {
+        return this.http.get(this.urlPrefix + '/property/' + propertyId)
+        .pipe(map(response=>{return response}))
+    }
+
 }

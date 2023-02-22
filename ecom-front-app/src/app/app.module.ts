@@ -19,6 +19,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon';
 import { ApplicationComponent } from './config/application/application.component';
+import { AddEditPropertyComponent } from './config/add-edit-property/add-edit-property.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +32,7 @@ import { ApplicationComponent } from './config/application/application.component
     GatewayComponent,
     ConfigComponent,
     ApplicationComponent,
+    AddEditPropertyComponent,
     
   ],
   imports: [
@@ -43,7 +49,10 @@ import { ApplicationComponent } from './config/application/application.component
     MatInputModule,
     MatSelectModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
