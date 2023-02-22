@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSelectChange } from '@angular/material/select';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon'
+
 import _ from "lodash";
 
 @Component({
@@ -20,6 +23,8 @@ export class ConfigComponent implements OnInit {
   propFilters: PropFilter[] = [];
   filterDictionary= new Map<string,string>();
   applications = [];
+  isApplication = false;
+  isProperty = true;
 
   displayedColumns = [
     //"id", 
@@ -159,7 +164,10 @@ export class ConfigComponent implements OnInit {
     alert("Delete property " + propertyId);
   }
 
-
+  appManagement() {
+    this.isApplication = true;
+    this.isProperty = false;
+  }
 }
 
 

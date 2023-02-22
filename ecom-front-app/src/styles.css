@@ -3,12 +3,21 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* You can add global styles to this file, and also import other style files */
-@import "assets/css/toaster-2.css"; 
+/*@import "assets/css/toaster-2.css"; 
 @import "assets/css/common.css";
 @import "assets/css/widgets.css";
 @import "assets/css/pages.css";
 @import '../node_modules/primeng/resources/primeng.min.css';
 @import '../node_modules/primeng/resources/themes/nova-light/theme.css';
 @import '../node_modules/primeicons/primeicons.css';
-@import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
+@import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';*/
 /* @import "~ng-pick-datetime/assets/style/picker.min.css"; */
+
+
+button {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    padding: 8px;
+    /* min-width: 120px; */
+}
