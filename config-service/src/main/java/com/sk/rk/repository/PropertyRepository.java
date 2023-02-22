@@ -71,7 +71,16 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
 
     List<Property> findByApplication(Application application);
 
+
+
     List<Property> findByProfile(Profile profile);
+
+
+    @Query(value = "select id, `key`, `value`, application_id, profile_id, label from Properties " +
+            "where id = :Id ", nativeQuery = true)
+    List<Map<String, Object>> getPropertyById(
+            @Param("Id") Long id
+    );
 
 
 

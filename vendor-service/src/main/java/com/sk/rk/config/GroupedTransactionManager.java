@@ -9,15 +9,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class GroupedTransactionManager  {
-
-
     @Bean(name = "chainedTransactionManager")
     public ChainedTransactionManager transactionManager(
-            @Qualifier("vendorTransactionManager") PlatformTransactionManager vendorTransactionManager
-            , @Qualifier("subscriptionTransactionManager") PlatformTransactionManager subscriptionTransactionManager
-
+            @Qualifier("vendorSqlPlatformTransactionManager")
+                PlatformTransactionManager vendorTransactionManager
+            , @Qualifier("subscriptionSqlPlatformTransactionManager")
+                PlatformTransactionManager subscriptionTransactionManager
     ){
-
         return new ChainedTransactionManager(vendorTransactionManager, subscriptionTransactionManager);
     }
 }

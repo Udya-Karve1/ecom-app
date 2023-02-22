@@ -18,10 +18,10 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
             @Param("Profile") String profile
     );
 
-    @Query(value = "select profileId, profile, '' as action from Profile order by profile", nativeQuery = true)
+    @Query(value = "select profile_id as profileId, profile, '' as action from Profile order by profile", nativeQuery = true)
     List<Map<String, Object>> getAllProfile();
 
-    @Query(value = "select profileId, profile from Profile where Profile=:Profile and ProfileId<>:ProfileId ", nativeQuery = true)
+    @Query(value = "select profile_id as profileId, profile from Profile where Profile=:Profile and ProfileId<>:ProfileId ", nativeQuery = true)
     List<Profile> getProfileValidateUpdate(
             @Param("ProfileId") Long profileId,
             @Param("Profile") String profile

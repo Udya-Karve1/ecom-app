@@ -39,6 +39,11 @@ public class PropertyController {
         return new ResponseEntity<>(profileService.getAllProfiles(), HttpStatus.OK);
     }
 
+    @GetMapping("/property/{property-id}")
+    public  ResponseEntity<Map<String, Object>> getPropertyById(@PathVariable("property-id") Long propertyId) throws Exception {
+        return new ResponseEntity<>(propertyService.getPropertyById(propertyId), HttpStatus.OK);
+    }
+
     @DeleteMapping("/profile/{profile-id}")
     public ResponseEntity<String> deleteProfile(
             @PathVariable("profile-id") Long profileId

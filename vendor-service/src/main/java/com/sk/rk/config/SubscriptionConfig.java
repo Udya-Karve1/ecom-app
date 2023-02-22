@@ -19,8 +19,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.sk.rk.repository.subscription"
-        , entityManagerFactoryRef = "vendorEntityManagerFactory"
-        , transactionManagerRef = "vendorSqlPlatformTransactionManager")
+        , entityManagerFactoryRef = "subscriptionSqlPlatformTransactionManager"
+        , transactionManagerRef = "subscriptionSqlPlatformTransactionManager")
 public class SubscriptionConfig {
 
     @Primary
@@ -40,7 +40,7 @@ public class SubscriptionConfig {
 
     @Primary
     @Bean
-    public LocalContainerEntityManagerFactoryBean subscriptionEntityManagerFactory(
+    public LocalContainerEntityManagerFactoryBean subscriptionSqlPlatformTransactionManager(
             @Qualifier("subscriptionSqlDataSource") DataSource pgsqlDataSource, EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(pgsqlDataSource)

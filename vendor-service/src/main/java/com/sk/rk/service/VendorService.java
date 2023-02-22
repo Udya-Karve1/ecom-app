@@ -5,7 +5,10 @@ import com.sk.rk.model.VendorAddRequest;
 import com.sk.rk.repository.subscription.VendorSubscription;
 import com.sk.rk.repository.subscription.VendorSubscriptionRepository;
 import com.sk.rk.repository.vendor.VendorRepository;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,7 @@ public class VendorService {
     }
 
     private VendorSubscription createEntityVendorSubscription(VendorAddRequest request) {
+
         VendorSubscription subscription = new VendorSubscription();
         subscription.setSubscriptionId(request.getSubscriptionId());
         subscription.setDuration(request.getDuration());

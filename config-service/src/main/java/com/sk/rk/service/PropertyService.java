@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 @Service
 public class PropertyService {
 
@@ -44,6 +45,10 @@ public class PropertyService {
 
     public List<Map<String, Object>> getAllProperties() {
         return propertyRepository.serachProperties();
+    }
+
+    public Map<String, Object> getPropertyById(Long propertyId) throws Exception {
+        return propertyRepository.getPropertyById(propertyId).stream().findFirst().orElseThrow(()-> new Exception("Property not found"));
     }
 
 
