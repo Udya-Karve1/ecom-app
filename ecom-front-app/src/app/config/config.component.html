@@ -97,42 +97,35 @@
 <hr />
 
 
-
 <div class="content p-0 background-none">
     <div class="tile-container">
       <div class="tile-body">
-        <div *ngFor="let element of propertyList" class="tile-box" [ngClass]="{'inactive-box' : element.isActive == false}">
-          <div class="metric-name">
-            <label>key</label>
-            <p>{{element.key}}</p>           
+        <div class="tile-box" *ngFor="let element of propertyList" [ngClass]="{'inactive-box' : element.isActive == false}">
+  
+
+          <div class="name-with-email">
+            <h4>{{element.key}}</h4>
+            <p class="email-user"></p>
           </div>
-          <div class="created-by">
-            <label>Value</label>
+          <div class="organization-role">
+            <label>Organization Role </label>
             <p>{{element.value}}</p>
           </div>
-
-          <div class="created-by">
-            <label>application</label>
+          <div class="user-contact">
+            <label>Contact</label>
             <p>{{element.application}}</p>
           </div>
-          
-          <div class="created-by">
-            <label>profile</label>
+          <div class="user-contact">
+            <label>User Type</label>
             <p>{{element.profile}}</p>
           </div>
-
-
-
-
-        
-      </div>
+          <div class="user-created-by">
+            <label>Created By</label>
+            <p>{{element.application_id}}</p>
+          </div>
+        </div>
       </div>
     </div>
-    
 
   </div>
   
-
-
-
-
