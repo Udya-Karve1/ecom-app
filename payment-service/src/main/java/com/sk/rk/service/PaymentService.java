@@ -17,7 +17,7 @@ public class PaymentService {
     public Object getBalance(Long customerId) {
         return webClient
                 .get()
-                .uri("/v1/api/customer/balance/" + customerId)
+                .uri("/customer/v1/api/balance/" + customerId)
                 .retrieve()
                 .bodyToMono(Map.class)
                 .block();
@@ -26,7 +26,7 @@ public class PaymentService {
     public Object debit(PaymentRequestDTO requestDTO) {
         return webClient
                 .post()
-                .uri("/v1/api/customer/balance/debit")
+                .uri("/customer/v1/api/balance/debit")
                 .body(Mono.just(requestDTO), PaymentRequestDTO.class)
                 .retrieve()
                 .bodyToMono(Map.class)
@@ -37,7 +37,7 @@ public class PaymentService {
 
         return webClient
                 .post()
-                .uri("/v1/api/customer/balance/credit")
+                .uri("/customer/v1/api/balance/credit")
                 .body(Mono.just(requestDTO), PaymentRequestDTO.class)
                 .retrieve()
                 .bodyToMono(Map.class)

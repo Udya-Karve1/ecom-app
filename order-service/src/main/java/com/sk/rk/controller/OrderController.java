@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.sk.rk.service.OrderCommandService;
 
 @RestController
-@RequestMapping("/v1/api/order")
+@RequestMapping("/order/v1/api")
 public class OrderController {
 
     @Autowired

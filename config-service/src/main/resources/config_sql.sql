@@ -71,8 +71,8 @@ Insert into properties(application_id, profile_id, key,  value) values(9,2,'eure
 Insert into properties(application_id, profile_id, key,  value) values(5,2,'spring.application.name','inventory-service');
 Insert into properties(application_id, profile_id, key,  value) values(5,2,'server.port','8230');
 Insert into properties(application_id, profile_id, key,  value) values(5,2,'eureka.client.serviceUrl.defaultZone','http://localhost:8761/eureka/');
-Insert into properties(application_id, profile_id, key,  value) values(8,2,'service.endpoints.payment','PAYMENT-SERVICE/v1/api/payment/');
-Insert into properties(application_id, profile_id, key,  value) values(8,2,'service.endpoints.inventory','PAYMENT-SERVICE/v1/api/inventory/');
+Insert into properties(application_id, profile_id, key,  value) values(8,2,'service.endpoints.payment','PAYMENT-SERVICE/payment/v1/api/');
+Insert into properties(application_id, profile_id, key,  value) values(8,2,'service.endpoints.inventory','PAYMENT-SERVICE/inventory/v1/api/');
 Insert into properties(application_id, profile_id, key,  value) values(8,2,'spring.application.name','order-orchestrator-service');
 Insert into properties(application_id, profile_id, key,  value) values(8,2,'spring.kafka.producer.bootstrap-servers','localhost:9092');
 Insert into properties(application_id, profile_id, key,  value) values(8,2,'spring.kafka.topic.name','order_created_event');
@@ -98,8 +98,8 @@ Insert into properties(application_id, profile_id, key,  value) values(7,2,'spri
 Insert into properties(application_id, profile_id, key,  value) values(7,2,'spring.kafka.consumer.value-deserializer','org.springframework.kafka.support.serializer.JsonDeserializer');
 Insert into properties(application_id, profile_id, key,  value) values(7,2,'spring.kafka.consumer.properties.spring.json.trusted.packages','*');
 Insert into properties(application_id, profile_id, key,  value) values(7,2,'spring.kafka.topic.name','order_topics');
-Insert into properties(application_id, profile_id, key,  value) values(7,2,'customer.get-customer.url','http://CUSTOMER-SERVICE/v1/api/customer');
-Insert into properties(application_id, profile_id, key,  value) values(7,2,'customer.get-product.url ','http://PRODUCT-SERVICE/v1/api/product');
+Insert into properties(application_id, profile_id, key,  value) values(7,2,'customer.get-customer.url','http://CUSTOMER-SERVICE/customer/v1/api');
+Insert into properties(application_id, profile_id, key,  value) values(7,2,'customer.get-product.url ','http://PRODUCT-SERVICE/product/v1/api');
 Insert into properties(application_id, profile_id, key,  value) values(7,2,'spring.topic.order-completed','order_completed_topic');
 Insert into properties(application_id, profile_id, key,  value) values(7,2,'spring.group-id.order-completed','order_completed_group_id');
 Insert into properties(application_id, profile_id, key,  value) values(4,2,'spring.application.name','order-service');

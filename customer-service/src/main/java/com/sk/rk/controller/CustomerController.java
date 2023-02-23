@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/api/customer")
+@RequestMapping("/customer/v1/api")
 @Slf4j
 public class CustomerController {
 

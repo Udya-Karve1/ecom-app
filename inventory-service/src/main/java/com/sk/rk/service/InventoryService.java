@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @FeignClient("PRODUCT-SERVICE")
 public interface InventoryService {
 
-    @GetMapping("/v1/api/product/inventory/quantity/{product-id}")
+    @GetMapping("/product/v1/api/inventory/quantity/{product-id}")
     Object getQuantity(@PathVariable("product-id")Long productId);
 
-    @PostMapping("/v1/api/product/quantity-decrease/{product-id}/{quantity}")
+    @PostMapping("/product/v1/api/quantity-decrease/{product-id}/{quantity}")
     ResponseEntity decreaseQuantity(
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity
     );
 
-    @PostMapping("/v1/api/product/quantity-increase/{product-id}/{quantity}/1")
+    @PostMapping("/product/v1/api/quantity-increase/{product-id}/{quantity}/1")
     ResponseEntity increaseQuantity(
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity

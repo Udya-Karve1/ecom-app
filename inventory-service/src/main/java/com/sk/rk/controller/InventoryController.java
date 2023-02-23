@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/api/inventory")
+@RequestMapping("/inventory/v1/api")
 public class InventoryController {
 
     Logger log = LoggerFactory.getLogger(InventoryController.class);
