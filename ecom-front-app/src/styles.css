@@ -6,11 +6,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "assets/css/toaster-2.css"; 
 @import "assets/css/common.css";
 @import "assets/css/widgets.css";
-@import "../node_modules/prime";
+/*@import "../node_modules/prime";
 @import '../node_modules/primeng/resources/primeng.min.css';
 @import '../node_modules/primeng/resources/themes/nova-light/theme.css';
 @import '../node_modules/primeicons/primeicons.css';
-@import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
+@import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';*/
 /* @import "~ng-pick-datetime/assets/style/picker.min.css"; */
 
 @import "assets/css/pages.css";

@@ -1362,6 +1362,7 @@ tr:first-child td .table-action-icons a.edit:hover:after {
 .tile-box div.organization-role {
   /* flex: 0 0 18%;
     max-width: 18%; */
+    white-space: nowrap;
   word-break: break-word;
   width: 20%;
 }

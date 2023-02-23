@@ -23,6 +23,7 @@ import { AddEditPropertyComponent } from './config/add-edit-property/add-edit-pr
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatorDirective } from './directives/matpaginator.directive';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ConfigComponent,
     ApplicationComponent,
     AddEditPropertyComponent,
+    PaginatorDirective
     
   ],
   imports: [

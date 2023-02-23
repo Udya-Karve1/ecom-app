@@ -102,30 +102,49 @@
       <div class="tile-body">
         <div class="tile-box" *ngFor="let element of propertyList" [ngClass]="{'inactive-box' : element.isActive == false}">
   
-
           <div class="name-with-email">
-            <h4>{{element.key}}</h4>
+            <p><b>{{element.key}}</b></p>
             <p class="email-user"></p>
           </div>
           <div class="organization-role">
-            <label>Organization Role </label>
+            <label>Value</label>
             <p>{{element.value}}</p>
           </div>
           <div class="user-contact">
-            <label>Contact</label>
+            <label>Application</label>
             <p>{{element.application}}</p>
           </div>
           <div class="user-contact">
-            <label>User Type</label>
+            <label>Profile</label>
             <p>{{element.profile}}</p>
           </div>
           <div class="user-created-by">
-            <label>Created By</label>
+            <label>Application ID</label>
             <p>{{element.application_id}}</p>
+          </div>
+          <div class="border-left project-action">
+            <div class="user-action">
+              <a class="view" href="javascript:void()">
+                <i class="fa fa-eye"></i>
+              </a>
+              <a class="edit" href="javascript:void()" 
+                 routerLink="/users/{{element.userId}}">
+                <!-- <i class="fa fa-edit"></i> -->
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a class="delete" href="javascript:void()" >
+                <!-- <i class="fa fa-trash"></i> -->
+                <mat-icon>delete_forever</mat-icon>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- <mat-paginator [length]="totalRecords" [pageSize]="10" showTotalPages="10"
+    [pageSizeOptions]="this._userService.pageSizeOptions" (page)="pageChange($event)" showFirstLastButtons
+    [pageIndex]="(this._userService.params.pageNo - 1)">
+  </mat-paginator> -->
 
   </div>
   

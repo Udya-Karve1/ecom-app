@@ -114,6 +114,7 @@ export class ConfigComponent implements OnInit {
       this.dataSourceFilters = new MatTableDataSource(response);
       this.dataSourceFilters.paginator = this.paginator;
       this.propertyList = response;
+      this.totalRecords = this.propertyList.length;
 
       
 
@@ -173,7 +174,7 @@ export class ConfigComponent implements OnInit {
 
   editProperty(propertyId) {
     this.selectedPropertyId = propertyId;
-    this.dialog.open(AddEditPropertyComponent, { data: {'propertyId': this.selectedPropertyId}, height: '450px', width: '600px'});
+    this.dialog.open(AddEditPropertyComponent, { data: {'propertyId': this.selectedPropertyId}, height: '500px', width: '600px'});
 
   }
 
