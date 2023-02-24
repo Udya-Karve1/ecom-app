@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/gateway-db
+    username: root
+    password: admin123
+    driver-class-name:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  application:
+    name: gateway-service
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: customer
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/customer/**
+          filters:
+            - RewritePath=/customer/(?<path>.*), /$\{path}
+        - id: product
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/product/**
+          filters:
+            - RewritePath=/product/(?<path>.*), /$\{path}
+
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: API Gateway
+        url: /v3/api-docs
+      - name: customer
+        url: /v3/api-docs/customer
+      - name: product
+        url: /v3/api-docs/product
+
+
+server:
+  port: 80
+  forward-headers-strategy: FRAMEWORK
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+

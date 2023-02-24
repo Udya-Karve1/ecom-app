@@ -1,7 +1,9 @@
 package com.sk.rk.model;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "gateway_swagger")
