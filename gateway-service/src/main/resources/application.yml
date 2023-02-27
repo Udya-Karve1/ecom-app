@@ -16,37 +16,6 @@ spring:
       discovery:
         locator:
           enabled: true
-      routes:
-        - id: customer
-          uri: lb://CUSTOMER-SERVICE
-          predicates:
-            - Path=/customer/**
-          filters:
-            - RewritePath=/customer/(?<path>.*), /$\{path}
-        - id: product
-          uri: lb://PRODUCT-SERVICE
-          predicates:
-            - Path=/product/**
-          filters:
-            - RewritePath=/product/(?<path>.*), /$\{path}
-        - id: openapi
-          uri: http://localhost:${server.port}
-          predicates:
-            - Path=/v3/api-docs/**
-          filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-
-springdoc:
-  swagger-ui:
-    layout:
-    urls:
-      - name: API Gateway
-        url: /v3/api-docs
-      - name: customer
-        url: /v3/api-docs/customer
-      - name: product
-        url: /v3/api-docs/product
-
 
 server:
   port: 80
