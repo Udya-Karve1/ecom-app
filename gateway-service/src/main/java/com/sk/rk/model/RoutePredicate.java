@@ -15,8 +15,9 @@ public class RoutePredicate {
     private String predicateKey;
     private String predicateValue;
 
-
     @ManyToOne
     @JoinColumn(name = "route_id")
     private Route route;
+
+    private Boolean active;
 }

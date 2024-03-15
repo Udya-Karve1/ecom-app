@@ -1,0 +1,30 @@
+insert into route(id, uri) values('product','lb://PRODUCT-SERVICE')
+insert into route(id, uri) values('customer','lb://CUSTOMER-SERVICE')
+insert into route(id, uri) values('order-read-service','lb://ORDER-READ-SERVICE')
+insert into route(id, uri) values('order-service','lb://ORDER-SERVICE')
+insert into route(id, uri) values('payment-service','lb://PAYMENT-SERVICE')
+insert into route(id, uri) values('vendor-service','lb://VENDOR-SERVICE')
+insert into route(id, uri) values('inventory-service','lb://INVENTORY-SERVICE')
+insert into route(id, uri) values('openapi','http://localhost:80')
+insert into route(id, uri) values('notification-service','lb://NOTIFICATION-SERVICE')
+
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/product/**', 1, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/customer/**', 2, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/order-read/**', 3, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/order/**', 4, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/payment/**', 5, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/vendor/**', 6, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/inventory/**', 7, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/v3/api-docs/**', 8, 1);
+insert into route_predicate(predicate_key, predicate_value, route_id, active) values ('Path', '/notification/**', 9, 1);
+
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/product/(?<path>.*)', '/${path}', 1, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/customer/(?<path>.*)', '/${path}', 2, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/order-read/(?<path>.*)', '/${path}', 3, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/order/(?<path>.*)', '/${path}', 4, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/payment/(?<path>.*)', '/${path}', 5, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/vendor/(?<path>.*)', '/${path}', 6, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/inventory/(?<path>.*)', '/${path}', 7, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/v3/api-docs/(?<path>.*)', '/${path}/v3/api-docs', 8, 1);
+insert into route_filter(filter_key,filter_regex, filter_replacement, route_id, `active`) values('RewritePath', '/notification/(?<path>.*)', '/${path}', 9, 1);
+

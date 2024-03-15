@@ -6,6 +6,8 @@ import com.sk.rk.model.entity.Customer;
 import com.sk.rk.model.request.AddCustomer;
 import com.sk.rk.model.request.UpdateCustomer;
 import com.sk.rk.service.CustomerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/api")
+@Tag(name = "CustomerController", description = "Customer related endpoints.")
 @Slf4j
 public class CustomerController {
 
@@ -26,6 +29,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{customer-id}")
+    @Operation(summary = "Get customer by ID", description = "Get customer POJO by providing a numeric CustomerId as a path variable.")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("customer-id")Long customerId) throws BaseException {
         return new ResponseEntity<>(this.customerService.getCustomerById(customerId) , HttpStatus.OK);
     }

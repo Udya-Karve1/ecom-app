@@ -16,5 +16,5 @@ public class GatewaySwagger {
     private String serviceName;
     private String serviceUrl;
 
-
+    private Boolean active;
 }

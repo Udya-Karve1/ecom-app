@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <springProfile name="default">
+        <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>E:/sw.uday.karve/microservice-workspace/elk-log/elk.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>:/sw.uday.karve/microservice-workspace/elk-log.zip</fileNamePattern>
+                <maxFileSize>5MB</maxFileSize>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d %p %c [%t] %m%n</pattern>
+            </encoder>
+        </appender>
+        <root level="info">
+            <appender-ref ref="logstash" />
+        </root>
+    </springProfile>
+</configuration>

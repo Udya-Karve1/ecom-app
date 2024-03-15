@@ -40,12 +40,11 @@ Insert into application (application) values('GATEWAY-SERVICE');
 Insert into application (application) values('VENTOR-SERVICE');
 
 
-insert into `profile`(profile) value ('dev');
-insert into `profile`(profile) value ('default');
-insert into `profile`(profile) value ('local');
-insert into `profile`(profile) value ('test');
-insert into `profile`(profile) value ('prod');
-
+insert into [profile](profile) values ('dev')
+insert into [profile](profile) values ('default')
+insert into [profile](profile) values ('local')
+insert into [profile](profile) values ('test')
+insert into [profile](profile) values ('prod')
 
 Insert into properties(application_id, profile_id, key,  value) values(3,2,'spring.application.name','customer-service');
 Insert into properties(application_id, profile_id, key,  value) values(3,2,'server.port','8220');

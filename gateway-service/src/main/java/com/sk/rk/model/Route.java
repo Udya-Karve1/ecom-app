@@ -26,4 +26,6 @@ public class Route {
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RouteFilter> filterList = new ArrayList<>();
+
+    private Boolean active;
 }

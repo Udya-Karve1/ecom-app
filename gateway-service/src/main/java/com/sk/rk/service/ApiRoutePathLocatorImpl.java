@@ -1,17 +1,20 @@
 package com.sk.rk.service;
 
+import com.sk.rk.model.RouteFilter;
+import com.sk.rk.model.RoutePredicate;
 import lombok.AllArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.*;
 import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Flux;
 
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 @AllArgsConstructor
+@Slf4j
 public class ApiRoutePathLocatorImpl implements RouteLocator {
 
     private final GatewayService gatewayService;
@@ -25,57 +28,28 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
 
         Flux<com.sk.rk.model.Route> fluxRoute = Flux.fromStream(gatewayService.getAllRoute().stream());
 
+        gatewayService.getAllRoute().stream().forEach(apiroute->{
+            String path = apiroute.getPredicateList().stream().findFirst().orElse(new RoutePredicate()).getPredicateValue();
+            RouteFilter routeFilter = apiroute.getFilterList().stream().findFirst().orElse(new RouteFilter());
+            log.debug("path: {}, regex: {}, replacement: {}, uri: {}", path, routeFilter.getFilterRegex(), routeFilter.getFilterReplacement(), apiroute.getUri());
+            routesBuilder.route(apiroute.getId(), predicateSpec -> setPredicateSpec(apiroute, predicateSpec));
+        });
 
-        gatewayService.getAllRoute().stream()
-                .map(routeEntity->{
-                    return routesBuilder.route(routeEntity.getId(), predicateSpec -> setPredicateSpec(routeEntity, predicateSpec)).build();
+        return routesBuilder.build().getRoutes();
 
-                }).flatMap(locator->locator.getRoutes().toStream()).;
-
-
-
-
-
-
-
-        RouteLocator routeLocator = routesBuilder
-                .route( "customer", r->r.alwaysTrue()
-                        .and()
-                        .path("/customer/**")
-                        .filters(f->f.rewritePath("/customer/(?<path>.*)", "/$\\{path}"))
-                        .uri("lb://CUSTOMER-SERVICE"))
-                .route("product", r->r.alwaysTrue()
-                        .and()
-                        .path("/product/**")
-                        .filters(f->f.rewritePath("/product/(?<path>.*)", "/$\\{path}"))
-                        .uri("lb://PRODUCT-SERVICE"))
-                .route("openapi", r->r.alwaysTrue()
-                        .and()
-                        .path("/v3/api-docs/**")
-                        .filters(f->f.rewritePath("/v3/api-docs/(?<path>.*)", "/$\\{path}/v3/api-docs"))
-                        .uri("http://localhost:80")
-                )
-                .build();
-
-        return routeLocator.getRoutes();
-
-
-/*        return fluxRoute.map(
-                api->routesBuilder.route(api.getId()
-                        , predicateSpec -> setPredicateSpec(api, predicateSpec)) )
-                .flatMap (builder -> routesBuilder.build().getRoutes()
-                );*/
     }
 
-    private Buildable<Route> setPredicateSpec(com.sk.rk.model.Route apiRoute, PredicateSpec predicateSpec) {
+   private Buildable<Route> setPredicateSpec(com.sk.rk.model.Route apiRoute, PredicateSpec predicateSpec) {
 
 
         if(!CollectionUtils.isEmpty(apiRoute.getPredicateList())) {
+            String path = apiRoute.getPredicateList().stream().findFirst().orElse(new RoutePredicate()).getPredicateValue();
+            RouteFilter routeFilter = apiRoute.getFilterList().stream().findFirst().orElse(new RouteFilter());
+
             BooleanSpec booleanSpec = predicateSpec.path(apiRoute.getPredicateList().get(0).getPredicateValue());
 
             if(!CollectionUtils.isEmpty(apiRoute.getFilterList())) {
-                String[] filterValue = apiRoute.getFilterList().get(0).getFilterValue().split(",");
-                booleanSpec.filters(gatewayFilterSpec -> gatewayFilterSpec.rewritePath(filterValue[0], filterValue[1]));
+                booleanSpec.filters(gatewayFilterSpec -> gatewayFilterSpec.rewritePath(routeFilter.getFilterRegex(), routeFilter.getFilterReplacement()));
             }
 
             return booleanSpec.uri(apiRoute.getUri());
