@@ -12,11 +12,11 @@ import java.util.List;
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "application_id")
+    @Column(name = "Application_Id")
     Long applicationId;
 
-    @Column(name = "application")
-    String application;
+    @Column(name = "Application_Name")
+    String applicationName;
 
     @OneToMany(mappedBy = "application")
     private List<Property> propertyList = new ArrayList<>();

@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Map;
 
 @RestController
@@ -46,26 +45,25 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{customer-id}")
-    public ResponseEntity<String> deleteCustomer(@PathVariable("customer-id") Long customerId) throws BaseException {
+    public ResponseEntity<String> deleteCustomer(@PathVariable("customer-id") Long customerId) {
         this.customerService.deleteCustomer(customerId);
         return new ResponseEntity<>("Customer deleted.", HttpStatus.OK);
     }
 
     @GetMapping("/balance/{customer-id}")
-    public ResponseEntity getBalance(@PathVariable("customer-id")Long customerId) throws BaseException {
+    public ResponseEntity<Map<String, Object>> getBalance(@PathVariable("customer-id")Long customerId) throws BaseException {
         log.info("customer controller balance called.......");
         return new ResponseEntity<>(customerService.getBalance(customerId), HttpStatus.OK);
     }
     @PostMapping("/balance/debit")
-    public ResponseEntity<Map> debitBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
+    public ResponseEntity<Map<String, String>> debitBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
         log.info("customer controller debit called.......");
         return new ResponseEntity<>(customerService.debitBalance(requestDTO), HttpStatus.OK);
     }
 
     @PostMapping("/balance/credit")
-    public ResponseEntity<Map> creditBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
+    public ResponseEntity<Map<String, String>> creditBalance(@RequestBody PaymentRequestDTO requestDTO) throws BaseException {
         log.info("customer controller credit called.......");
         return new ResponseEntity<>(customerService.creditBalance(requestDTO), HttpStatus.OK);
     }
-
 }

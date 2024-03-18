@@ -14,7 +14,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
 
 
-    List<Profile> findByProfileIgnoreCase(
+    List<Profile> findByProfileNameIgnoreCase(
             @Param("Profile") String profile
     );
 

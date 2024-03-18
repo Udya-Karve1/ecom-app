@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/gateway-db
-    username: root
-    password: admin123
+    url: r2dbc:mssql://localhost\SQLEXP2019/sqldb-ecom-gateway;user=sa;password=softweb#123
+    username: sa
+    password: softweb#123
     driver-class-name:
   jpa:
     hibernate:

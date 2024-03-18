@@ -23,8 +23,8 @@ public class ConfigService {
 
     public ConfigResponse getConfigResponse(String application, String profile) {
 
-        List<Application> applications = applicationRepository.findByApplicationIgnoreCase(application);
-        List<Profile> profiles = profileRepository.findByProfileIgnoreCase(profile);
+        List<Application> applications = applicationRepository.findByApplicationNameIgnoreCase(application);
+        List<Profile> profiles = profileRepository.findByProfileNameIgnoreCase(profile);
         List<Property> propertyList = propertyRepository.findByApplicationAndProfile(applications.get(0), profiles.get(0));
 
         return createConfigResponseObject1(application.toLowerCase(), profile.toLowerCase(), null, propertyList);
@@ -46,9 +46,9 @@ public class ConfigService {
         propertySource.setName(application);
         Map<String, Object> source = new HashMap<>();
 
-        propertyList.stream().forEach(map->{
-            source.put(map.get("Key").toString(), map.get("Value"));
-        });
+        propertyList.stream().forEach(map->
+            source.put(map.get("Key").toString(), map.get("Value"))
+        );
         propertySource.setSource(source);
         propertySources.add(propertySource);
         configResponse.setPropertySources(propertySources);
@@ -67,9 +67,7 @@ public class ConfigService {
         propertySource.setName(application);
         Map<String, Object> source = new HashMap<>();
 
-        propertyList.stream().forEach(map->{
-            source.put(map.getKey() , map.getValue());
-        });
+        propertyList.stream().forEach(map->source.put(map.getKey() , map.getValue()));
         propertySource.setSource(source);
         propertySources.add(propertySource);
         configResponse.setPropertySources(propertySources);

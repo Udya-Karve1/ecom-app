@@ -1,5 +1,6 @@
 package com.sk.rk.service;
 
+import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.Application;
 import com.sk.rk.model.Property;
 import com.sk.rk.repository.ApplicationRepository;
@@ -11,7 +12,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class ApplicationService {
@@ -26,40 +26,40 @@ public class ApplicationService {
         return applicationRepository.getAllAplications();
     }
 
-    public Application saveApplication(Application application) throws Exception {
+    public Application saveApplication(Application application) throws BaseException {
 
         List<Application> applications = applicationRepository
-                .findByApplicationIgnoreCase(application.getApplication());
+                .findByApplicationNameIgnoreCase(application.getApplicationName());
 
         if(CollectionUtils.isEmpty(applications)) {
             return applicationRepository.save(application);
         } else {
-            throw new Exception("Application already exists with name : " + application.getApplication());
+            throw new BaseException(400, "Application already exists with name : " + application.getApplicationName());
         }
     }
 
 
-    public Application updateApplication(Application application) throws Exception {
+    public Application updateApplication(Application application) throws BaseException {
 
         List<Application> applications = applicationRepository
-                .findByApplicationIgnoreCase(application.getApplication());
+                .findByApplicationNameIgnoreCase(application.getApplicationName());
 
         if(CollectionUtils.isEmpty(applications)) {
             return applicationRepository.save(application);
         } else {
-            throw new Exception("Application already exists with name : " + application.getApplication());
+            throw new BaseException(400, "Application already exists with name : " + application.getApplicationName());
         }
     }
 
     @Transient
-    public void deleteApplication(Long applicationId) throws Exception {
+    public void deleteApplication(Long applicationId) throws BaseException {
         Application application = applicationRepository.findById(applicationId)
-                .orElseThrow(()->new Exception("Application not found"));
+                .orElseThrow(()->new BaseException(400, "Application not found"));
 
         List<Property> properties = propertyRepository.findByApplication(application);
 
         if(!CollectionUtils.isEmpty(properties)) {
-            throw new Exception("Can not delete application, it is mapped with property");
+            throw new BaseException(400, "Can not delete application, it is mapped with property");
         }
         applicationRepository.delete(application);
     }

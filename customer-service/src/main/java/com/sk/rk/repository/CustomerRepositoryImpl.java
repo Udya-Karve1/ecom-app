@@ -60,8 +60,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                                 , rs.getString("last_name")
                                 , rs.getString("email")
                                 , rs.getString("password")
-                                , rs.getDouble("balance")
-                        )
+                                , rs.getDouble("balance"))
                         )
                 );
     }
@@ -72,7 +71,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public void creditAmount(Long customerId, Double amount) {
-
+        // to be implemented
     }
 
 }

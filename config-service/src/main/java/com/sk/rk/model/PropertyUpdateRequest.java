@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PropertyUpdateRequest extends PropertyAddRequest {
-    private Long Id;
+    private Long id;
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
-    List<Application> findByApplicationIgnoreCase(
+    List<Application> findByApplicationNameIgnoreCase(
             @Param("Application") String aplication
     );
 

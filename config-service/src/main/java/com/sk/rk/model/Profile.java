@@ -13,11 +13,11 @@ public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "profile_id")
+    @Column(name = "Profile_Id")
     private Long profileId;
 
-    @Column(name = "profile")
-    private String profile;
+    @Column(name = "Profile_Name")
+    private String profileName;
 
     @OneToMany(mappedBy = "profile")
     private List<Property> propertyList = new ArrayList<>();

@@ -21,17 +21,18 @@ import java.util.Map;
 public class PropertyController {
 
     @Autowired
-    PropertyService propertyService;
+    private PropertyService propertyService;
 
     @Autowired
-    ApplicationService applicationService;
+    private ApplicationService applicationService;
 
     @Autowired
-    ProfileService profileService;
+    private ProfileService profileService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Map<String, Object>>> getAllProperty() {
-        return new ResponseEntity<>(propertyService.getAllProperties(), HttpStatus.OK);
+        List<Map<String, Object>> list = propertyService.getAllProperties();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/profile/all")
@@ -82,7 +83,7 @@ public class PropertyController {
     public ResponseEntity<Application> addApplication(
             @RequestBody Application applicationEntity
     ) throws Exception {
-        return new ResponseEntity<>(applicationService.saveApplication(applicationEntity), HttpStatus.OK);
+        return new ResponseEntity<>(applicationService.saveApplication(applicationEntity), HttpStatus.CREATED);
     }
     @PutMapping("/application")
     public ResponseEntity<Application> editApplication(
@@ -112,7 +113,7 @@ public class PropertyController {
     public ResponseEntity<Profile> addProfile(
             @RequestBody Profile profileEntity
     ) throws Exception {
-        return new ResponseEntity<>(profileService.saveProfile(profileEntity), HttpStatus.OK);
+        return new ResponseEntity<>(profileService.saveProfile(profileEntity), HttpStatus.CREATED);
     }
 
     @PutMapping("/profile")

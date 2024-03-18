@@ -1,0 +1,184 @@
+package com.sk.rk.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sk.rk.exception.BaseException;
+import com.sk.rk.model.Application;
+import com.sk.rk.model.Profile;
+import com.sk.rk.model.Property;
+import com.sk.rk.service.ApplicationService;
+import com.sk.rk.service.ProfileService;
+import com.sk.rk.service.PropertyService;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.*;
+
+import static org.mockito.Mockito.*;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest(PropertyController.class)
+public class PropertyControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Inject
+    private PropertyController propertyController;
+
+    @MockBean
+    private PropertyService propertyService;
+
+    @MockBean
+    private ApplicationService applicationService;
+
+    @MockBean
+    private ProfileService profileService;
+
+
+    @Test
+    public void getAllPropertyTest() throws Exception {
+        when(propertyService.getAllProperties()).thenReturn(Collections.emptyList());
+        this.mockMvc.perform(get("/property/all")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void getAllProfileTest() throws Exception {
+        when(profileService.getAllProfiles()).thenReturn(Collections.emptyList());
+        this.mockMvc.perform(get("/property/profile/all")).andExpect(status().isOk());
+    }
+
+
+    @Test
+    public void getPropertyByIdTest() throws Exception {
+        when(propertyService.getPropertyById(Mockito.anyLong())).thenReturn(Collections.emptyMap());
+        this.mockMvc.perform(get("/property/property/1")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteProfileTest() throws Exception {
+        doNothing().when(profileService).deleteProfile(Mockito.anyLong());
+        this.mockMvc.perform(delete("/property/profile/1")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteApplicationTest() throws Exception {
+        doNothing().when(applicationService).deleteApplication(Mockito.anyLong());
+        this.mockMvc.perform(delete("/property/application/1")).andExpect(status().isOk());
+    }
+
+
+    @Test
+    public void getAllApplicationTest() throws Exception {
+        when(applicationService.getAllApplication()).thenReturn(Collections.emptyList());
+        this.mockMvc.perform(get("/property/application/all")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void addApplicationTest() throws Exception {
+        when(applicationService.saveApplication(any())).thenReturn(new Application());
+        this.mockMvc.perform(post("/property/application")
+                .content(asJsonString(new Application()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isCreated());
+    }
+
+
+    @Test
+    public void editApplicationTest() throws Exception {
+        when(applicationService.updateApplication(any())).thenReturn(new Application());
+        this.mockMvc.perform(put("/property/application")
+                .content(asJsonString(new Application()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void addPropertyTest() throws Exception {
+        when(propertyService.saveProperty(any())).thenReturn(new Property());
+        this.mockMvc.perform(post("/property")
+                .content(asJsonString(new Application()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void editPropertyTest() throws Exception {
+        when(propertyService.saveProperty(any())).thenReturn(new Property());
+        this.mockMvc.perform(put("/property")
+                .content(asJsonString(new Application()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+    }
+
+
+
+    @Test
+    public void addProfileTest() throws Exception {
+        when(profileService.saveProfile(any())).thenReturn(new Profile());
+        this.mockMvc.perform(post("/property/profile")
+                .content(asJsonString(new Application()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void editProfileTest() throws Exception {
+        when(profileService.updateProfile(any())).thenReturn(new Profile());
+        this.mockMvc.perform(put("/property/profile")
+                .content(asJsonString(new Application()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void deletePropertyByIdTest1() throws Exception {
+        doThrow(new BaseException(400, "property not found")).when(propertyService).deleteProperty(anyLong());
+        this.mockMvc.perform(delete("/property/1")).andExpect(status().isBadRequest());
+
+    }
+
+
+    @Test
+    public void deleteProfileTest1() throws Exception {
+
+        doThrow(new BaseException(400, "property not found")).when(profileService).deleteProfile(Mockito.anyLong());
+        this.mockMvc.perform(delete("/property/profile/0")).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void deleteApplicationTest1() throws Exception {
+        doThrow(new BaseException(400, "property not found")).when(applicationService).deleteApplication(Mockito.anyLong());
+        this.mockMvc.perform(delete("/property/application/0")).andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    public void deletePropertyByIdTest() throws Exception {
+        doNothing().when(propertyService).deleteProperty(anyLong());
+        this.mockMvc.perform(delete("/property/0")).andExpect(status().isOk());
+    }
+
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+}

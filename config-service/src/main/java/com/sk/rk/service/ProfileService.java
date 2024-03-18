@@ -1,6 +1,7 @@
 package com.sk.rk.service;
 
 
+import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.Profile;
 import com.sk.rk.model.Property;
 import com.sk.rk.repository.ProfileRepository;
@@ -28,37 +29,36 @@ public class ProfileService {
     }
 
 
-    public Profile saveProfile(Profile profile) throws Exception {
+    public Profile saveProfile(Profile profile) throws BaseException {
         List<Profile> applications = profileRepository
-                .findByProfileIgnoreCase(profile.getProfile());
+                .findByProfileNameIgnoreCase(profile.getProfileName());
 
         if(CollectionUtils.isEmpty(applications)) {
             return profileRepository.save(profile);
         } else {
-            throw new Exception("Profile already exists with name : " + profile.getProfile());
+            throw new BaseException(400, "Profile already exists with name : " + profile.getProfileName());
         }
     }
 
 
-    public Profile updateProfile(Profile profile) throws Exception {
-        List<Profile> profileList = profileRepository.getProfileValidateUpdate(profile.getProfileId(), profile.getProfile());
+    public Profile updateProfile(Profile profile) throws BaseException {
+        List<Profile> profileList = profileRepository.getProfileValidateUpdate(profile.getProfileId(), profile.getProfileName());
         if(CollectionUtils.isEmpty(profileList)) {
             return profileRepository.saveAndFlush(profile);
         } else {
-            throw new Exception("Profile already exists with name : " + profile.getProfile());
+            throw new BaseException(400, "Profile already exists with name : " + profile.getProfileName());
         }
     }
 
 
-    @Transient
-    public void deleteProfile(Long profileId) throws Exception {
+    public void deleteProfile(Long profileId) throws BaseException {
 
         Profile profile = profileRepository.findById(profileId)
-                .orElseThrow(()->new Exception("Profile not found."));
+                .orElseThrow(()->new BaseException(400, "Profile not found."));
         List<Property> properties = propertyRepository.findByProfile(profile);
 
         if(!CollectionUtils.isEmpty(properties)){
-            throw new Exception("Can not delete Profile, profile is mapped with property");
+            throw new BaseException(400, "Can not delete Profile, profile is mapped with property");
         }
 
         profileRepository.delete(profile);

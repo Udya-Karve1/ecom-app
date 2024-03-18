@@ -1,5 +1,6 @@
 package com.sk.rk.service;
 
+import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.Application;
 import com.sk.rk.model.Profile;
 import com.sk.rk.model.Property;
@@ -71,10 +72,10 @@ public class PropertyService {
     }
 
 
-    public Property saveProperty(PropertyAddRequest request) throws Exception {
+    public Property saveProperty(PropertyAddRequest request) throws BaseException {
 
-        Profile profile = profileRepository.findById(request.getProfileId()).orElseThrow(()-> new Exception("Profile not found"));
-        Application application = applicationRepository.findById(request.getApplicationId()).orElseThrow(()-> new Exception("ApplicationRepository not found"));
+        Profile profile = profileRepository.findById(request.getProfileId()).orElseThrow(()-> new BaseException(400, "Profile not found"));
+        Application application = applicationRepository.findById(request.getApplicationId()).orElseThrow(()-> new BaseException(400, "ApplicationRepository not found"));
 
 
         List<Map<String, Object>> propertyList = propertyRepository.getProperties(
@@ -88,7 +89,7 @@ public class PropertyService {
 
             Map<String, Object> propertyMap = propertyList.get(0);
 
-            throw new Exception (
+            throw new BaseException(400,
                     "Property already exists \n" + "Key: " + propertyMap.get("Key") + "\n" +
                     "Value: " + propertyMap.get("Value") + "\n" +
                     "Application: " + propertyMap.get("Application") + "\n" +
@@ -100,10 +101,10 @@ public class PropertyService {
 
 
 
-    public Property updateProperty(PropertyUpdateRequest request) throws Exception {
+    public Property updateProperty(PropertyUpdateRequest request) throws BaseException {
 
-        Profile profile = profileRepository.findById(request.getProfileId()).orElseThrow(()-> new Exception("Profile not found"));
-        Application application = applicationRepository.findById(request.getApplicationId()).orElseThrow(()-> new Exception("ApplicationRepository not found"));
+        Profile profile = profileRepository.findById(request.getProfileId()).orElseThrow(()-> new BaseException(400, "Profile not found"));
+        Application application = applicationRepository.findById(request.getApplicationId()).orElseThrow(()-> new BaseException(400, "ApplicationRepository not found"));
 
         List<Map<String, Object>> propertyList = propertyRepository.getPropertyToValidateUpdate(
                 request.getId(), request.getKey(), request.getValue(), request.getApplicationId(), request.getProfileId()
@@ -114,7 +115,7 @@ public class PropertyService {
         } else {
             Map<String, Object> propertyMap = propertyList.get(0);
 
-            throw new Exception (
+            throw new BaseException (400,
                     "Property already exists \n" + "Key: " + propertyMap.get("Key") + "\n" +
                             "Value: " + propertyMap.get("Value") + "\n" +
                             "Application: " + propertyMap.get("Application") + "\n" +
@@ -129,12 +130,12 @@ public class PropertyService {
     }
 
     @Transactional
-    public void deleteProperty(Long propertyId) throws Exception {
+    public void deleteProperty(Long propertyId) throws BaseException {
         Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
         if(propertyOptional.isPresent()) {
             propertyRepository.delete(propertyOptional.get());
         } else {
-            throw new Exception("Property not found.");
+            throw new BaseException(400, "Property not found.");
         }
     }
 }
