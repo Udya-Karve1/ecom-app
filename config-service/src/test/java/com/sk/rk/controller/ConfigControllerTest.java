@@ -1,14 +1,13 @@
 package com.sk.rk.controller;
 
-import com.sk.rk.model.ConfigResponse;
-import com.sk.rk.service.ConfigService;
+import com.sk.rk.config.controller.ConfigController;
+import com.sk.rk.config.model.ConfigResponse;
+import com.sk.rk.config.service.ConfigService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;

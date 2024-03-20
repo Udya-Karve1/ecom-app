@@ -1,0 +1,34 @@
+package com.sk.rk.order.read.service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sk.rk.order.read.model.CustomerOrder;
+import com.sk.rk.order.read.model.CustomerOrderRequest;
+import com.sk.rk.order.read.repository.CustomerOrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CustomerOrderService {
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private CustomerOrderRepository repository;
+
+
+    public List<CustomerOrder> searchCustomerOrder(CustomerOrderRequest request) throws JsonProcessingException {
+        return repository.searchCustomerOrder(objectMapper.writeValueAsString(request));
+    }
+
+    public void addOrder(CustomerOrder customerOrder) {
+        repository.save(customerOrder);
+    }
+
+    public void updateOrder(CustomerOrder customerOrder) {
+        repository.save(customerOrder);
+    }
+}

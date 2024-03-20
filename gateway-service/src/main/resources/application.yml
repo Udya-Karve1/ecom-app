@@ -1,9 +1,4 @@
 spring:
-  datasource:
-    url: r2dbc:mssql://localhost\SQLEXP2019/sqldb-ecom-gateway;user=sa;password=softweb#123
-    username: sa
-    password: softweb#123
-    driver-class-name:
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,7 +11,6 @@ spring:
       discovery:
         locator:
           enabled: true
-
 server:
   port: 80
   forward-headers-strategy: FRAMEWORK

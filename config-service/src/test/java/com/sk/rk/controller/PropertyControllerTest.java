@@ -1,13 +1,15 @@
 package com.sk.rk.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.sk.rk.config.controller.PropertyController;
+import com.sk.rk.config.model.Application;
+import com.sk.rk.config.model.Profile;
+import com.sk.rk.config.model.Property;
+import com.sk.rk.config.service.ApplicationService;
+import com.sk.rk.config.service.ProfileService;
+import com.sk.rk.config.service.PropertyService;
 import com.sk.rk.exception.BaseException;
-import com.sk.rk.model.Application;
-import com.sk.rk.model.Profile;
-import com.sk.rk.model.Property;
-import com.sk.rk.service.ApplicationService;
-import com.sk.rk.service.ProfileService;
-import com.sk.rk.service.PropertyService;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
