@@ -2,20 +2,24 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <springProfile name="default">
-        <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>E:/sw.uday.karve/microservice-workspace/elk-log/elk.log</file>
+    <springProfile name="wfo">
+        <appender name="fileRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>../dr-cache-output.log</file>
+
             <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-                <fileNamePattern>:/sw.uday.karve/microservice-workspace/elk-log.zip</fileNamePattern>
+                <fileNamePattern>../dr-cache-output-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
                 <maxFileSize>5MB</maxFileSize>
             </rollingPolicy>
 
             <encoder>
-                <pattern>%d %p %c [%t] %m%n</pattern>
+                <pattern>%d %p %c{1.} [%t] %m%n</pattern>
             </encoder>
         </appender>
-        <root level="info">
-            <appender-ref ref="logstash" />
+
+        <root level="debug">
+            <appender-ref ref="fileRolling"/>
         </root>
+        <logger name="org.springframework.web" level="DEBUG"/>
     </springProfile>
+
 </configuration>

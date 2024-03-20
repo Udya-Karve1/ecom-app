@@ -1,0 +1,13 @@
+package com.sk.rk.customer.model.request;
+
+import lombok.Data;
+
+
+@Data
+public class AddCustomer {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private Double balance;
+}
