@@ -38,8 +38,6 @@ public class WebConfig {
     private GatewayService apiRouteService;
 
 
-
-
     @Bean
     public RouteLocator routeLocator(GatewayService apiRouteService,
                                      RouteLocatorBuilder routeLocatorBuilder) {
@@ -56,9 +54,9 @@ public class WebConfig {
     public SwaggerUiConfigParameters swaggerUiConfigParameters() {
         ApplicationContext applicationContext = GatewayConfig.getApplicationContext();
         SwaggerUiConfigParameters swaggerUiConfigParameters = (SwaggerUiConfigParameters)applicationContext.getBean("org.springdoc.core.properties.SwaggerUiConfigParameters");
-        Set<AbstractSwaggerUiConfigProperties.SwaggerUrl> swaggerUrlSet = apiRouteService.getSwaggerList().stream().map(swagger-> {
-            return new AbstractSwaggerUiConfigProperties.SwaggerUrl(swagger.getServiceName(), swagger.getServiceUrl(), swagger.getServiceName());
-        }).collect(Collectors.toSet());
+        Set<AbstractSwaggerUiConfigProperties.SwaggerUrl> swaggerUrlSet = apiRouteService.getSwaggerList().stream().map(swagger->
+            new AbstractSwaggerUiConfigProperties.SwaggerUrl(swagger.getServiceName(), swagger.getServiceUrl(), swagger.getServiceName())
+        ).collect(Collectors.toSet());
 
         swaggerUiConfigParameters.setUrls(swaggerUrlSet);
 
@@ -70,9 +68,9 @@ public class WebConfig {
     public SwaggerUiConfigProperties swaggerUiConfigProperties() {
         ApplicationContext applicationContext = GatewayConfig.getApplicationContext();
         SwaggerUiConfigProperties swaggerUiConfigProperties = (SwaggerUiConfigProperties)applicationContext.getBean("org.springdoc.core.properties.SwaggerUiConfigProperties");
-        Set<AbstractSwaggerUiConfigProperties.SwaggerUrl> swaggerUrlSet = apiRouteService.getSwaggerList().stream().map(swagger-> {
-            return new AbstractSwaggerUiConfigProperties.SwaggerUrl(swagger.getServiceName(), swagger.getServiceUrl(), swagger.getServiceName());
-        }).collect(Collectors.toSet());
+        Set<AbstractSwaggerUiConfigProperties.SwaggerUrl> swaggerUrlSet = apiRouteService.getSwaggerList().stream().map(swagger->
+            new AbstractSwaggerUiConfigProperties.SwaggerUrl(swagger.getServiceName(), swagger.getServiceUrl(), swagger.getServiceName())
+        ).collect(Collectors.toSet());
 
         swaggerUiConfigProperties.setUrls(swaggerUrlSet);
 

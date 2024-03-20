@@ -20,13 +20,10 @@ public class GatewayService {
     private RouteRepository routeRepository;
 
     public List<GatewaySwagger> getSwaggerList() {
-        //return swaggerRepository.findAll();
         return swaggerRepository.findByActive(Boolean.TRUE);
     }
 
     public List<Route> getAllRoute() {
-        //return routeRepository.findAll();
-
         return  routeRepository.findByActive(Boolean.TRUE);
     }
 

@@ -45,11 +45,15 @@
 			<scope>runtime</scope>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/io.r2dbc/r2dbc-mssql -->
 		<dependency>
 			<groupId>io.r2dbc</groupId>
 			<artifactId>r2dbc-mssql</artifactId>
-			<version>1.0.0.RELEASE</version>
+			<version>1.0.2.RELEASE</version>
+			<scope>test</scope>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>

@@ -9,12 +9,9 @@ import java.util.stream.Collectors;
 
 public class CustomSwaggerUIConfigImpl extends AbstractSwaggerUiConfigProperties {
 
-    private GatewayService gatewayService;
-
 
     public CustomSwaggerUIConfigImpl(GatewayService gatewayService) {
         super();
-        this.gatewayService = gatewayService;
         this.setUrls(prepareSwaggerUrl(gatewayService.getSwaggerList()));
     }
 

@@ -4,6 +4,7 @@ import com.sk.rk.model.RouteFilter;
 import com.sk.rk.model.RoutePredicate;
 import lombok.AllArgsConstructor;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -25,9 +26,7 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
     @Override
     public Flux<Route> getRoutes() {
         RouteLocatorBuilder.Builder routesBuilder = routeLocatorBuilder.routes();
-
-        Flux<com.sk.rk.model.Route> fluxRoute = Flux.fromStream(gatewayService.getAllRoute().stream());
-
+        
         gatewayService.getAllRoute().stream().forEach(apiroute->{
             String path = apiroute.getPredicateList().stream().findFirst().orElse(new RoutePredicate()).getPredicateValue();
             RouteFilter routeFilter = apiroute.getFilterList().stream().findFirst().orElse(new RouteFilter());
@@ -43,7 +42,6 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
 
 
         if(!CollectionUtils.isEmpty(apiRoute.getPredicateList())) {
-            String path = apiRoute.getPredicateList().stream().findFirst().orElse(new RoutePredicate()).getPredicateValue();
             RouteFilter routeFilter = apiRoute.getFilterList().stream().findFirst().orElse(new RouteFilter());
 
             BooleanSpec booleanSpec = predicateSpec.path(apiRoute.getPredicateList().get(0).getPredicateValue());

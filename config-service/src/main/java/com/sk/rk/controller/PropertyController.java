@@ -1,5 +1,6 @@
 package com.sk.rk.controller;
 
+import com.sk.rk.exception.BaseException;
 import com.sk.rk.model.Application;
 import com.sk.rk.model.Profile;
 import com.sk.rk.model.Property;
@@ -82,13 +83,13 @@ public class PropertyController {
     @PostMapping("/application")
     public ResponseEntity<Application> addApplication(
             @RequestBody Application applicationEntity
-    ) throws Exception {
+    ) throws BaseException {
         return new ResponseEntity<>(applicationService.saveApplication(applicationEntity), HttpStatus.CREATED);
     }
     @PutMapping("/application")
     public ResponseEntity<Application> editApplication(
             @RequestBody Application applicationEntity
-    ) throws Exception {
+    ) throws BaseException {
         return new ResponseEntity<>(applicationService.updateApplication(applicationEntity), HttpStatus.OK);
     }
 
@@ -96,7 +97,7 @@ public class PropertyController {
     @PostMapping
     public ResponseEntity<Property> addProperty(
             @RequestBody PropertyAddRequest propertyEntity
-    ) throws Exception {
+    ) throws BaseException {
         return new ResponseEntity<>(propertyService.saveProperty(propertyEntity), HttpStatus.OK);
     }
 
@@ -104,7 +105,7 @@ public class PropertyController {
     @PutMapping
     public ResponseEntity<Property> editProperty(
             @RequestBody PropertyUpdateRequest propertyEntity
-    ) throws Exception {
+    ) throws BaseException {
         return new ResponseEntity<>(propertyService.updateProperty(propertyEntity), HttpStatus.OK);
     }
 
@@ -112,14 +113,14 @@ public class PropertyController {
     @PostMapping("/profile")
     public ResponseEntity<Profile> addProfile(
             @RequestBody Profile profileEntity
-    ) throws Exception {
+    ) throws BaseException {
         return new ResponseEntity<>(profileService.saveProfile(profileEntity), HttpStatus.CREATED);
     }
 
     @PutMapping("/profile")
     public ResponseEntity<Profile> editProfile(
             @RequestBody Profile profileEntity
-    ) throws Exception {
+    ) throws BaseException {
         return new ResponseEntity<>(profileService.updateProfile(profileEntity), HttpStatus.OK);
     }
 

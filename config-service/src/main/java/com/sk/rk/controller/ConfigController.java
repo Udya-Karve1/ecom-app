@@ -36,12 +36,34 @@ public class ConfigController {
         return new ResponseEntity<>(configService.getConfigResponse(application, profile, label), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/{application}.yml", "/{application}-{profile}.yml", "/{application}-{profile}.properties", "/{application}.properties"})
-    public ResponseEntity<ConfigResponse>  getApplicationProfileExt(
+    @GetMapping(value = {"/{application}.yml"})
+    public ResponseEntity<ConfigResponse>  getApplicationProfileExt1(
+            @PathVariable(name = "application") String application
+    ) {
+        return new ResponseEntity<>(configService.getConfigResponse(application, null), HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/{application}-{profile}.yml"})
+    public ResponseEntity<ConfigResponse>  getApplicationProfileExt2(
             @PathVariable(name = "application") String application,
             @PathVariable(name = "profile") String profile
     ) {
         return new ResponseEntity<>(configService.getConfigResponse(application, profile), HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/{application}-{profile}.properties"})
+    public ResponseEntity<ConfigResponse>  getApplicationProfileExt3(
+            @PathVariable(name = "application") String application,
+            @PathVariable(name = "profile", required = false) String profile
+    ) {
+        return new ResponseEntity<>(configService.getConfigResponse(application, profile), HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/{application}.properties"})
+    public ResponseEntity<ConfigResponse>  getApplicationProfileExt4(
+            @PathVariable(name = "application") String application
+    ) {
+        return new ResponseEntity<>(configService.getConfigResponse(application, null), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/{label}/{application}-{profile}.yml", "/{label}/{application}-{profile}.properties"})

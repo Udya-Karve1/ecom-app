@@ -6,7 +6,6 @@ import com.sk.rk.model.Profile;
 import com.sk.rk.model.Property;
 import com.sk.rk.repository.ProfileRepository;
 import com.sk.rk.repository.PropertyRepository;
-import jakarta.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
