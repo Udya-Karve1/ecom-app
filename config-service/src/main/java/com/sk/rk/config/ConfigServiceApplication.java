@@ -1,4 +1,4 @@
-package com.sk.rk.config.config;
+package com.sk.rk.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
