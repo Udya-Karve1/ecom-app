@@ -45,6 +45,8 @@ insert into [profile](profile_name) values ('default')
 insert into [profile](profile_name) values ('local')
 insert into [profile](profile_name) values ('test')
 insert into [profile](profile_name) values ('prod')
+insert into [profile](profile_name) values ('wfh')
+insert into [profile](profile_name) values ('wfo')
 
 Insert into properties(application_id, profile_id, [key_name],  key_value) values(3,2,'spring.application.name','customer-service');
 Insert into properties(application_id, profile_id, [key_name],  key_value) values(3,2,'server.port','8220');

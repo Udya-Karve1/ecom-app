@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping("/v1/api/product")
 public class ProductController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class ProductController {
 
     @GetMapping("/search/all")
     @Operation(summary = "Search products.")
-    public ResponseEntity<List<Product>> getProductById(@RequestParam(name = "product-id", required = false) Long productId
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam(name = "product-id", required = false) Long productId
             , @RequestParam(name = "product-name", required = false) String productName) {
         return new ResponseEntity<>(service.searchProduct(productId, productName), HttpStatus.OK);
     }
@@ -62,7 +62,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/quantity-decrease/{product-id}/{quantity}")
+    @PatchMapping("/quantity-decrease/{product-id}/{quantity}")
     @Operation(summary = "Get product quantity.")
     public ResponseEntity<UpdateProduct> decreaseQuantity(
             @PathVariable(name = "product-id", required = false) Long productId
@@ -70,7 +70,7 @@ public class ProductController {
         return new ResponseEntity<>(service.decreaseQuantity(productId, quantity), HttpStatus.OK);
     }
 
-    @PostMapping("/quantity-increase/{product-id}/{quantity}/{one}")
+    @PatchMapping("/quantity-increase/{product-id}/{quantity}/{one}")
     @Operation(summary = "Get product quantity.")
     public ResponseEntity<UpdateProduct> increaseQuantity(
             @PathVariable(name = "product-id", required = false) Long productId

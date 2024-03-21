@@ -9,7 +9,7 @@ import com.sk.rk.config.model.Property;
 import com.sk.rk.config.service.ApplicationService;
 import com.sk.rk.config.service.ProfileService;
 import com.sk.rk.config.service.PropertyService;
-import com.sk.rk.exception.BaseException;
+import com.sk.rk.common.exception.BaseException;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
