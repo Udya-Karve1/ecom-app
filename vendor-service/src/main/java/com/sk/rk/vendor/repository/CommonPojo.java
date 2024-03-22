@@ -1,4 +1,4 @@
-package com.sk.rk.repository;
+package com.sk.rk.vendor.repository;
 
 import lombok.Data;
 
@@ -9,3 +9,4 @@ public class CommonPojo {
     private Timestamp dateCreated;
     private Timestamp dateModified;
 }
+

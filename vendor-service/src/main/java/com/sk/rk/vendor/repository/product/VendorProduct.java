@@ -1,6 +1,6 @@
-package com.sk.rk.repository.product;
+package com.sk.rk.vendor.repository.product;
 
-import com.sk.rk.repository.CommonPojo;
+import com.sk.rk.vendor.repository.CommonPojo;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,3 +15,4 @@ public class VendorProduct extends CommonPojo {
     private Long productId;
     private Boolean isActive;
 }
+

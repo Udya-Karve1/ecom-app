@@ -1,11 +1,11 @@
-package com.sk.rk.config;
+package com.sk.rk.vendor.config;
 
-import com.sk.rk.repository.CommonPojo;
+import com.sk.rk.vendor.repository.CommonPojo;
+import com.sk.rk.vendor.util.CommonUtil;
 import org.hibernate.event.spi.PreInsertEvent;
 import org.hibernate.event.spi.PreInsertEventListener;
 import org.hibernate.event.spi.PreUpdateEvent;
 import org.hibernate.event.spi.PreUpdateEventListener;
-import com.sk.rk.util.CommonUtil;
 
 import java.sql.Timestamp;
 

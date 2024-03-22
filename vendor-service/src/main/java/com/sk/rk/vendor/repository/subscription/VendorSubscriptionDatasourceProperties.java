@@ -1,4 +1,5 @@
-package com.sk.rk.repository.subscription;
+package com.sk.rk.vendor.repository.subscription;
+
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

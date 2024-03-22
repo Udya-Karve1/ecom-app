@@ -1,4 +1,5 @@
-package com.sk.rk.repository.vendor;
+package com.sk.rk.vendor.repository.vendor;
+
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -32,3 +33,4 @@ public class VendorDataSourceProperty {
         this.password = password;
     }
 }
+

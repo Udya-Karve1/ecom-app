@@ -1,4 +1,5 @@
-package com.sk.rk.util;
+package com.sk.rk.vendor.util;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -85,3 +86,4 @@ public class CommonUtil {
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.sk.rk.repository.product;
+package com.sk.rk.vendor.repository.product;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,3 +12,4 @@ public interface VendorProductRepository extends JpaRepository<VendorProduct, Lo
 
     List<VendorProduct> findByVendorId(@Param("VendorId") Long vendorId);
 }
+

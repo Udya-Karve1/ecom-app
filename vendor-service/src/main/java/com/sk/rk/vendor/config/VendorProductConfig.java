@@ -1,4 +1,5 @@
-package com.sk.rk.config;
+package com.sk.rk.vendor.config;
+
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,7 +33,7 @@ public class VendorProductConfig {
     @Primary
     @Bean
     public DataSource vendorProductSqlDataSource(@Qualifier("vendorProductDataSourceProperties")
-                                          DataSourceProperties vendorProductDataSourceProperties) {
+                                                 DataSourceProperties vendorProductDataSourceProperties) {
         return vendorProductDataSourceProperties
                 .initializeDataSourceBuilder().build();
     }
@@ -55,3 +56,4 @@ public class VendorProductConfig {
         return new JpaTransactionManager(vendorProductEntityManagerFactory);
     }
 }
+

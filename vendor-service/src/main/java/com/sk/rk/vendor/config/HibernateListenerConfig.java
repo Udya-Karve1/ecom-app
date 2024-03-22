@@ -1,4 +1,5 @@
-package com.sk.rk.config;
+package com.sk.rk.vendor.config;
+
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManagerFactory;

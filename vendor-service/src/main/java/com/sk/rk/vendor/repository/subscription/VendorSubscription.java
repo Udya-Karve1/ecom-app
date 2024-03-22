@@ -1,13 +1,13 @@
-package com.sk.rk.repository.subscription;
+package com.sk.rk.vendor.repository.subscription;
 
-import com.sk.rk.repository.CommonPojo;
+import com.sk.rk.vendor.repository.CommonPojo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-
 import java.sql.Timestamp;
+
 @Data
 @Entity
 public class VendorSubscription extends CommonPojo {

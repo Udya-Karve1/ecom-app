@@ -1,10 +1,11 @@
-package com.sk.rk.service;
+package com.sk.rk.vendor.service;
 
-import com.sk.rk.repository.vendor.Vendor;
-import com.sk.rk.model.VendorAddRequest;
-import com.sk.rk.repository.subscription.VendorSubscription;
-import com.sk.rk.repository.subscription.VendorSubscriptionRepository;
-import com.sk.rk.repository.vendor.VendorRepository;
+
+import com.sk.rk.vendor.model.VendorAddRequest;
+import com.sk.rk.vendor.repository.subscription.VendorSubscription;
+import com.sk.rk.vendor.repository.subscription.VendorSubscriptionRepository;
+import com.sk.rk.vendor.repository.vendor.Vendor;
+import com.sk.rk.vendor.repository.vendor.VendorRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.provider.HibernateUtils;

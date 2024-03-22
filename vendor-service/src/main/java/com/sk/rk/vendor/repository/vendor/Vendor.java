@@ -1,11 +1,10 @@
-package com.sk.rk.repository.vendor;
+package com.sk.rk.vendor.repository.vendor;
 
+import com.sk.rk.vendor.repository.CommonPojo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import com.sk.rk.repository.CommonPojo;
-import java.sql.Timestamp;
 
 @Entity
 @Data

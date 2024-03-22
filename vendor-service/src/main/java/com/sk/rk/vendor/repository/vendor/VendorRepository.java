@@ -1,4 +1,4 @@
-package com.sk.rk.repository.vendor;
+package com.sk.rk.vendor.repository.vendor;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

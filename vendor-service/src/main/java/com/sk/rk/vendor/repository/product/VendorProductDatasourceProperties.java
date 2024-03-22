@@ -1,4 +1,5 @@
-package com.sk.rk.repository.product;
+package com.sk.rk.vendor.repository.product;
+
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

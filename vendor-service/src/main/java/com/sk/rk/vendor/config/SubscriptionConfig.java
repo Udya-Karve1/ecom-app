@@ -1,4 +1,5 @@
-package com.sk.rk.config;
+package com.sk.rk.vendor.config;
+
 
 import org.springframework.context.annotation.Configuration;
 import jakarta.persistence.EntityManagerFactory;
@@ -33,7 +34,7 @@ public class SubscriptionConfig {
     @Primary
     @Bean
     public DataSource subscriptionSqlDataSource(@Qualifier("subscriptionDataSourceProperties")
-                                          DataSourceProperties subscriptionDataSourceProperties) {
+                                                DataSourceProperties subscriptionDataSourceProperties) {
         return subscriptionDataSourceProperties
                 .initializeDataSourceBuilder().build();
     }
@@ -57,3 +58,4 @@ public class SubscriptionConfig {
     }
 
 }
+

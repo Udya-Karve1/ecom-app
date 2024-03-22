@@ -1,4 +1,4 @@
-package com.sk.rk.config;
+package com.sk.rk.vendor.config;
 
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,9 +12,9 @@ public class GroupedTransactionManager  {
     @Bean(name = "chainedTransactionManager")
     public ChainedTransactionManager transactionManager(
             @Qualifier("vendorSqlPlatformTransactionManager")
-                PlatformTransactionManager vendorTransactionManager
+            PlatformTransactionManager vendorTransactionManager
             , @Qualifier("subscriptionSqlPlatformTransactionManager")
-                PlatformTransactionManager subscriptionTransactionManager
+            PlatformTransactionManager subscriptionTransactionManager
     ){
         return new ChainedTransactionManager(vendorTransactionManager, subscriptionTransactionManager);
     }

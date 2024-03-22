@@ -1,4 +1,4 @@
-package com.sk.rk.model;
+package com.sk.rk.vendor.model;
 
 import lombok.Data;
 
