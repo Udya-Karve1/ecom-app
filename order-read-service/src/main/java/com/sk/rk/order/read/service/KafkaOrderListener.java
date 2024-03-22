@@ -1,6 +1,7 @@
 package com.sk.rk.order.read.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sk.rk.events.OrderCompletedEvent;
 import com.sk.rk.order.read.model.CustomerOrder;
@@ -62,7 +63,7 @@ public class KafkaOrderListener {
         customerOrder.setEmail(orderDetail.get("email").toString());
 
         customerOrder.setProductName(orderDetail.get("productName").toString());
-        customerOrder.setPrice(new Double(orderDetail.get("price").toString()));
+        customerOrder.setPrice(Double.valueOf(orderDetail.get("price").toString()));
 
         return customerOrder;
 
@@ -72,18 +73,16 @@ public class KafkaOrderListener {
     private Map<String, Object> getOrderDetail(OrderCompletedEvent orderCompletedEvent) throws InterruptedException {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         List<Callable<Map<String, Object>>> callables = Arrays.asList(
-                () -> {
-                    ResponseEntity customerResponse = restTemplate.exchange(
+                () ->
+                     objectMapper.convertValue(restTemplate.exchange(
                             "CUSTOMER-SRVICE/V1/API/" + orderCompletedEvent.getCustomerId()
-                            , HttpMethod.GET, prepareHttpEntity(), ResponseEntity.class);
-                    return Collections.emptyMap();
-                },
-                ()-> {
-                    ResponseEntity productResponse = restTemplate.exchange(
+                            , HttpMethod.GET, prepareHttpEntity(), ResponseEntity.class), new TypeReference<Map<String, Object>>() {})
+                ,
+                ()->
+                    objectMapper.convertValue(restTemplate.exchange(
                             "PRODUCT-SRVICE/V1/API/" + orderCompletedEvent.getProductId()
-                            , HttpMethod.GET, prepareHttpEntity(), ResponseEntity.class);
-                    return Collections.emptyMap();
-                }
+                            , HttpMethod.GET, prepareHttpEntity(), ResponseEntity.class), new TypeReference<Map<String, Object>>() {})
+
         );
         return getResult(executor, callables);
     }
@@ -98,8 +97,8 @@ public class KafkaOrderListener {
                 //Handle sql error message
                 if(e.getCause() instanceof SQLException){
                     message = e.getCause().getMessage();
-                } else if(e.getCause() instanceof UncategorizedSQLException){
-                    message = ((UncategorizedSQLException)e.getCause()).getSQLException().getMessage();
+                } else if(e.getCause() instanceof UncategorizedSQLException uncategorizedSQLException){
+                    message = uncategorizedSQLException.getSQLException().getMessage();
                 }
                 log.error("Error while executing callable/feature ", e);
                 Thread.currentThread().interrupt();
@@ -115,7 +114,7 @@ public class KafkaOrderListener {
 
 
 
-    private HttpEntity prepareHttpEntity() {
+    private HttpEntity<String> prepareHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 

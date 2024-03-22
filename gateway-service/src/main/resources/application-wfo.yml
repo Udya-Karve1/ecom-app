@@ -1,11 +1,12 @@
 spring:
-  r2dbc:
-    url: r2dbc:sqlserver://localhost:1400/sqldb-ecom-gateway
+  datasource:
+    url: jdbc:sqlserver://localhost;databaseName=sqldb-ecom-gateway;encrypt=true;trustServerCertificate=true;
     username: sa
     password: softweb#123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   application:
     name: gateway-service
   cloud:

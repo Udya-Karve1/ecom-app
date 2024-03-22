@@ -32,7 +32,6 @@ public class WebConfig {
     private GatewayService apiRouteService;
 
 
-
     @Bean
     public RouteLocator routeLocator(GatewayService apiRouteService,
                                      RouteLocatorBuilder routeLocatorBuilder) {

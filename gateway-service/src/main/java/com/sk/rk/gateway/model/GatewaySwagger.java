@@ -1,19 +1,22 @@
 package com.sk.rk.gateway.model;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.data.annotation.Id;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Table(name = "GatewaySwagger")
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class GatewaySwagger {
+public class GatewaySwagger implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gatewaySwaggerId;
 
     private String serviceName;

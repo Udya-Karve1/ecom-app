@@ -1,21 +1,23 @@
 package com.sk.rk.gateway.model;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Table(name = "RouteFilter")
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class RouteFilter {
+public class RouteFilter implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long routeFilterId;
 
     private String filterKey;
@@ -23,6 +25,7 @@ public class RouteFilter {
     private String filterRegex;
 
     private String filterReplacement;
+
     @ManyToOne
     @JoinColumn(name = "routeId")
     private Route route;

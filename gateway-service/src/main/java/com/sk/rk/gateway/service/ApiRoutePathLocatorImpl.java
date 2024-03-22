@@ -21,7 +21,6 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
 
     private final RouteLocatorBuilder routeLocatorBuilder;
 
-
     @Override
     public Flux<Route> getRoutes() {
         RouteLocatorBuilder.Builder routesBuilder = routeLocatorBuilder.routes();
@@ -34,15 +33,12 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
         });
 
         return routesBuilder.build().getRoutes();
-
     }
 
    private Buildable<Route> setPredicateSpec(com.sk.rk.gateway.model.Route apiRoute, PredicateSpec predicateSpec) {
 
-
         if(!CollectionUtils.isEmpty(apiRoute.getPredicateList())) {
             RouteFilter routeFilter = apiRoute.getFilterList().stream().findFirst().orElse(new RouteFilter());
-
             BooleanSpec booleanSpec = predicateSpec.path(apiRoute.getPredicateList().get(0).getPredicateValue());
 
             if(!CollectionUtils.isEmpty(apiRoute.getFilterList())) {

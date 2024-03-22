@@ -20,25 +20,23 @@ public class KafkaConfig {
 
         Map<String, Object> config = new HashMap<>();
 
-
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, org.apache.kafka.common.serialization.StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-
 
         return new DefaultKafkaProducerFactory<>(config);
     }
 
 
     @Bean(name = "order_created_template")
-    public KafkaTemplate kafkaTemplate() {
+    public KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate() {
 
         return new KafkaTemplate<>(producerFactory());
     }
 
 
     @Bean(name = "order_completed_template")
-    public KafkaTemplate kafkaTemplateCompleted() {
+    public KafkaTemplate<String, OrderCreatedEvent> kafkaTemplateCompleted() {
         return new KafkaTemplate<>(producerFactory());
     }
 

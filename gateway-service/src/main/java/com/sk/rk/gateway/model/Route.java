@@ -1,23 +1,25 @@
 package com.sk.rk.gateway.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.data.annotation.Id;
 import lombok.Data;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "Route")
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Route {
+public class Route implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long routeId;
 
     private String id;
@@ -25,9 +27,11 @@ public class Route {
     private String uri;
 
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL)
     private List<RoutePredicate> predicateList = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<RouteFilter> filterList = new ArrayList<>();
 
     private Boolean active;

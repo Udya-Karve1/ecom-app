@@ -3,12 +3,15 @@ package com.sk.rk.gateway.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "RoutePredicate")
 @Data
-public class RoutePredicate {
+public class RoutePredicate implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RoutePredicateId")
     private Long routePredicateId;
 

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -33,7 +32,7 @@ public class ProductService {
                     , p.get("product_name").toString()
                     , Double.valueOf(p.get("price").toString())
                     , Integer.getInteger(p.get("quantity").toString()))
-        ).collect(Collectors.toList());
+        ).toList();
     }
 
     public Product addProduct(AddProduct product) {
