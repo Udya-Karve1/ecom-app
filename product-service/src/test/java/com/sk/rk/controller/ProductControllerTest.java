@@ -1,9 +1,10 @@
 package com.sk.rk.controller;
 
 
-import com.sk.rk.exception.BaseException;
-import com.sk.rk.model.entity.Product;
-import com.sk.rk.service.ProductService;
+import com.sk.rk.common.exception.BaseException;
+import com.sk.rk.product.controller.ProductController;
+import com.sk.rk.product.model.entity.Product;
+import com.sk.rk.product.service.ProductService;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,7 @@ class ProductControllerTest {
 
     @Test
     void getProductByIdTestException() throws Exception {
-        doThrow(new BaseException()).when(productService).getProductById(anyLong());
-        productController.getProductById(1)
+        doThrow(BaseException.class).when(productService).getProductById(anyLong());
         this.mockMvc.perform(get("/v1/api/product/1")).andExpect(status().isOk());
     }
 }
