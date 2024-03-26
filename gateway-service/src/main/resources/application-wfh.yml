@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: r2dbc:sqlserver://localhost/sqldb-ecom-gateway
-    username: sa
-    password: softweb#123
-    driver-class-name:
+    url: jdbc:mysql://localhost:3306/sqldb-ecom-gateway
+    username: root
+    password: admin123
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,6 +13,11 @@ spring:
     compatibility-verifier:
       enabled: false
     gateway:
+      routes:
+        - id: product
+          uri: http://localhost:8082
+          predicates:
+            - Path=lp://PRODUCT-SERVICE/**
       discovery:
         locator:
           enabled: true
@@ -24,5 +29,3 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka
-
-

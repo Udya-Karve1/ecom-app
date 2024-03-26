@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Configuration
+//`@Configuration
 public class WebConfig {
-
+/*
     @Autowired
     private RouteDefinitionLocator locator;
 
@@ -81,5 +81,5 @@ public class WebConfig {
         });
 
         return groups;
-    }
+    }*/
 }

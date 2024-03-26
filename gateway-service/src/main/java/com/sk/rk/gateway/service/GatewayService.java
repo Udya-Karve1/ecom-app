@@ -9,7 +9,7 @@ import com.sk.rk.gateway.model.GatewaySwagger;
 
 import java.util.List;
 
-@Service
+//@Service
 public class GatewayService {
 
     @Autowired
