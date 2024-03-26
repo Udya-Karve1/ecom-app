@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.joshka.junit.json.params.JsonFileSource;
 import org.json.JSONException;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,8 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ActiveProfiles("wfh")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@ActiveProfiles("wfo")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 @Slf4j
 public class OrderControllerTest {
@@ -33,7 +32,7 @@ public class OrderControllerTest {
 
 
     @ParameterizedTest(name = "{displayName}")
-    @JsonFileSource(resources = "/testCases.json")
+    @JsonFileSource(resources = "/src/test/resources/testCases.json")
     @Tag("unit")
     void testActionController(JsonObject object) throws IOException, JSONException {
 

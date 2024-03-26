@@ -21,15 +21,15 @@ public class KafkaOrderProducer {
     @Value("${spring.topic.order-completed}")
     private String orderCompletedTopic;
 
-    @Autowired
+/*    @Autowired
     @Qualifier(value = "order_completed_template")
-    private KafkaTemplate<String, OrderCompletedEvent> kafkaTemplate2;
+    private KafkaTemplate<String, OrderCompletedEvent> kafkaTemplate2;*/
 
     public void publishMessageCreated(OrderCreatedEvent orderCreatedEvent) {
         kafkaTemplate.send(orderCreatedTopic, orderCreatedEvent);
     }
 
-    public void publishMessageCompleted(OrderCompletedEvent orderCompletedEvent) {
+/*    public void publishMessageCompleted(OrderCompletedEvent orderCompletedEvent) {
         kafkaTemplate2.send(orderCompletedTopic, orderCompletedEvent);
-    }
+    }*/
 }

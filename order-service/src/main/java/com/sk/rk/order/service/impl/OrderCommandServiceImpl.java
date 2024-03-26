@@ -32,7 +32,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
         order = orderRepository.save(order);
         kafkaOrderProducer.publishMessageCreated(createOrderCreatedEvent(order));
-        kafkaOrderProducer.publishMessageCompleted(createOrderCompletedEvent(order));
+        //kafkaOrderProducer.publishMessageCompleted(createOrderCompletedEvent(order));
         return order;
     }
 

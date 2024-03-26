@@ -27,6 +27,7 @@ public class ConfigService {
         List<Profile> profiles = profileRepository.findByProfileNameIgnoreCase(profile);
         List<Property> propertyList = propertyRepository.findByApplicationAndProfile(applications.get(0), profiles.get(0));
 
+
         return createConfigResponseObject1(application.toLowerCase(), profile.toLowerCase(), null, propertyList);
     }
 

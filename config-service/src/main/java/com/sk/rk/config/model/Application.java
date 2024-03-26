@@ -20,4 +20,6 @@ public class Application {
 
     @OneToMany(mappedBy = "application")
     private List<Property> propertyList = new ArrayList<>();
+
+
 }
