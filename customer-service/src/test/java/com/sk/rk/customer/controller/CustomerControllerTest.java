@@ -70,14 +70,14 @@ class CustomerControllerTest {
 
 
     @Test
-    public void saveCustomerExceptionTest() throws Exception {
+    void saveCustomerExceptionTest() throws Exception {
         doThrow(new BaseException(400, "Error while adding customer.")).when(customerService).addCustomer(any());
         Assertions.assertThrows(BaseException.class, () -> this.customerController.saveCustomer(new AddCustomer()));
     }
 
 
     @Test
-    public void updateCustomerTest() throws Exception {
+    void updateCustomerTest() throws Exception {
         when(customerService.updateCustomer(any())).thenReturn(new Customer());
         this.mockMvc.perform(put("/v1/api/customer")
                 .content(CommonUtil.asJsonString(new AddCustomer()))
@@ -87,20 +87,20 @@ class CustomerControllerTest {
     }
 
     @Test
-    public void updateCustomerExceptionTest() throws Exception {
+    void updateCustomerExceptionTest() throws Exception {
         doThrow(new BaseException(400, "Error while adding customer.")).when(customerService).updateCustomer(any());
         Assertions.assertThrows(BaseException.class, () -> this.customerController.updateCustomer(new UpdateCustomer()));
     }
 
 
     @Test
-    public void deleteCustomerTest() throws Exception {
+    void deleteCustomerTest() throws Exception {
         doNothing().when(customerService).deleteCustomer(anyLong());
         this.mockMvc.perform(delete("/v1/api/customer/1")).andExpect(status().isOk());
     }
 
     @Test
-    public void getBalanceExceptionTest() throws Exception {
+    void getBalanceExceptionTest() throws Exception {
         doThrow(new BaseException(400, "Error accessing customer account detail.")).when(customerService).getBalance(anyLong());
         Assertions.assertThrows(BaseException.class, ()->this.customerController.getBalance(1L));
     }

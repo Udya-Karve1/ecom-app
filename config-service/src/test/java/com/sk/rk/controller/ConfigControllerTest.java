@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ConfigController.class)
-public class ConfigControllerTest {
+class ConfigControllerTest {
 
     @MockBean
     private ConfigService configService;
@@ -26,22 +26,20 @@ public class ConfigControllerTest {
 
 
     @Test
-    public void getApplicationProfileTest() throws Exception {
+    void getApplicationProfileTest() throws Exception {
         when(configService.getConfigResponse(anyString(), anyString())).thenReturn(new ConfigResponse());
         this.mockMvc.perform(get("/api/config/any/any")).andExpect(status().isOk());
     }
 
     @Test
-    public void getApplicationProfileLabelTest() throws Exception {
+    void getApplicationProfileLabelTest() throws Exception {
         when(configService.getConfigResponse(anyString(), anyString(), anyString())).thenReturn(new ConfigResponse());
         this.mockMvc.perform(get("/api/config/any/any/any")).andExpect(status().isOk());
     }
 
     @Test
-    public void getApplicationProfileExtTest() throws Exception {
+    void getApplicationProfileExtTest() throws Exception {
         doNothing().when(configService).getConfigResponse(anyString(), anyString());
         this.mockMvc.perform(get("/api/config/application.yml")).andExpect(status().isOk());
     }
-
-
 }

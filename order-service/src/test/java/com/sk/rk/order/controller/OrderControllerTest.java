@@ -22,7 +22,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ActiveProfiles("wfo")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @ExtendWith(SpringExtension.class)
 @Slf4j
 public class OrderControllerTest {

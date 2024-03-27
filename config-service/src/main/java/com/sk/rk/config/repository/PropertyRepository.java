@@ -8,13 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long> {
-
 
     @Query(value = "select PR.Id, PR.Key, PR.Value, AP.Application, PRO.Profile from Properties PR " +
             "inner join Application AP on AP.ApplicationId = PR.ApplicationId " +

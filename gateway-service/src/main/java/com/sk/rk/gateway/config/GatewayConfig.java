@@ -4,7 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
-//@Configuration
+@Configuration
 public class GatewayConfig  implements ApplicationContextAware {
 
     public static ApplicationContext applicationContext = null;
