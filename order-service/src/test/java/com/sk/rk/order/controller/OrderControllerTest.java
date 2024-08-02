@@ -3,6 +3,7 @@ package com.sk.rk.order.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sk.rk.order.util.TestUtil;
 import io.restassured.response.Response;
+import jakarta.json.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import net.joshka.junit.json.params.JsonFileSource;
 import org.json.JSONException;
@@ -14,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.json.JsonObject;
 import java.io.IOException;
 import java.util.Map;
 import org.skyscreamer.jsonassert.JSONAssert;

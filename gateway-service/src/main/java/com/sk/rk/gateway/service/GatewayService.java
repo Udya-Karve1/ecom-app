@@ -1,4 +1,5 @@
 package com.sk.rk.gateway.service;
+/*
 
 import com.sk.rk.gateway.model.Route;
 import com.sk.rk.gateway.repository.RouteRepository;
@@ -9,7 +10,7 @@ import com.sk.rk.gateway.model.GatewaySwagger;
 
 import java.util.List;
 
-//@Service
+@Service
 public class GatewayService {
 
     @Autowired
@@ -23,9 +24,11 @@ public class GatewayService {
         return swaggerRepository.findAll();
     }
 
-    public List<Route> getAllRoute() {
+*/
+/*    public List<Route> getAllRoute() {
         //return  routeRepository.findByActive(Boolean.TRUE);
-        return routeRepository.findAll();
-    }
+        //return routeRepository.findAll();
+    }*//*
 
 }
+*/

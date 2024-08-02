@@ -1,5 +1,5 @@
 package com.sk.rk.gateway.service;
-
+/*
 import com.sk.rk.gateway.model.RouteFilter;
 import com.sk.rk.gateway.model.RoutePredicate;
 import lombok.AllArgsConstructor;
@@ -8,17 +8,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.*;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Flux;
 
 
-
 @AllArgsConstructor
 @Slf4j
+@Component
 public class ApiRoutePathLocatorImpl implements RouteLocator {
-
     private final GatewayService gatewayService;
-
     private final RouteLocatorBuilder routeLocatorBuilder;
 
     @Override
@@ -35,7 +34,7 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
         return routesBuilder.build().getRoutes();
     }
 
-   private Buildable<Route> setPredicateSpec(com.sk.rk.gateway.model.Route apiRoute, PredicateSpec predicateSpec) {
+    private Buildable<Route> setPredicateSpec(com.sk.rk.gateway.model.Route apiRoute, PredicateSpec predicateSpec) {
 
         if(!CollectionUtils.isEmpty(apiRoute.getPredicateList())) {
             RouteFilter routeFilter = apiRoute.getFilterList().stream().findFirst().orElse(new RouteFilter());
@@ -51,3 +50,4 @@ public class ApiRoutePathLocatorImpl implements RouteLocator {
         return predicateSpec.uri(apiRoute.getUri());
     }
 }
+*/

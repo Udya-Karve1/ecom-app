@@ -4,22 +4,22 @@
 
     <springProfile name="wfo">
         <appender name="fileRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>../dr-cache-output.log</file>
+            <file>../customer-service-output.log</file>
 
             <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-                <fileNamePattern>../dr-cache-output-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+                <fileNamePattern>../customer-service-output-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
                 <maxFileSize>5MB</maxFileSize>
             </rollingPolicy>
 
-            <encoder>
-                <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>%d %p %c [%t] %m%n</pattern>
             </encoder>
         </appender>
 
-        <root level="debug">
+        <root level="info">
             <appender-ref ref="fileRolling"/>
         </root>
-        <logger name="org.springframework.web" level="DEBUG"/>
+        <logger name="org.springframework.web" level="info"/>
     </springProfile>
 
 </configuration>

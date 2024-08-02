@@ -1,22 +1,16 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-  application:
-    name: gateway-service
   cloud:
-    compatibility-verifier:
-      enabled: false
     gateway:
-      discovery:
-        locator:
-          enabled: true
-server:
-  port: 80
-  forward-headers-strategy: FRAMEWORK
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
-
-
+      routes:
+        - id: openapi
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v3/api-docs/**-
+        - id: product-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/api/v1/product/**
+        - id: customer-service
+          uri: http://localhost:8220/
+          predicates:
+            - Path=/api/v1/customer/**

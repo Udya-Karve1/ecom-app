@@ -1,4 +1,7 @@
 package com.sk.rk.gateway.model;
+/*
+
+import java.io.Serializable;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +10,6 @@ import lombok.Data;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,4 +37,7 @@ public class Route implements Serializable {
     private List<RouteFilter> filterList = new ArrayList<>();
 
     private Boolean active;
+
+
 }
+*/
