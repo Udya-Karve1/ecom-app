@@ -16,10 +16,10 @@ public class RequestAndResponseLogGlobalFilter implements GlobalFilter, Ordered 
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        logger.info("Pre Filter Logic: Request path: {}", exchange.getRequest().getPath().toString());
-        return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-            logger.info("Post Filter Logic: HTTP Status Code: {}", exchange.getResponse().getStatusCode().toString());
-        }));
+        logger.info("Pre Filter Logic: Request path: {}", exchange.getRequest().getPath());
+        return chain.filter(exchange).then(Mono.fromRunnable(() ->
+            logger.info("Post Filter Logic: HTTP Status Code: {}", exchange.getResponse().getStatusCode())
+        ));
     }
 
     @Override

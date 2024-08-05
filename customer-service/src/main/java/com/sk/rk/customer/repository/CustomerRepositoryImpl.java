@@ -54,7 +54,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public Optional<Customer> findById(Long id) {
 
-        return jdbcTemplate.queryForObject("", (rs, row)->Optional.of(
+        return jdbcTemplate.queryForObject("select * from customer where customer_id=?", (rs, row)->Optional.of(
             new Customer(
                     rs.getLong("customer_id"), rs.getString("first_name"), rs.getString("last_name")
                     , rs.getString("email"), rs.getString("password"), rs.getDouble("balance")

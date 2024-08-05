@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/api/customer")
+@RequestMapping("/customer/v1/api")
 @Tag(name = "CustomerController", description = "Customer related endpoints.")
 @Slf4j
 public class CustomerController {

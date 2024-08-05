@@ -8,6 +8,7 @@ class VendorServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert(true);
 	}
 
 }

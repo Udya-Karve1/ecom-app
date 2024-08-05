@@ -1,4 +1,4 @@
-package com.sk.rk.product.config;
+package com.sk.rk.inventory.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -13,16 +13,16 @@ public class SpringFoxConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("Product")
-                .packagesToScan("com.sk.rk.product.controller")
+                .group("Inventory")
+                .packagesToScan("com.sk.rk.inventory.controller")
                 .build();
     }
 
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Product")
-                        .description("Product related endpoints.")
+                .info(new Info().title("Inventory")
+                        .description("Inventory related endpoints.")
                         .version("1.0")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }

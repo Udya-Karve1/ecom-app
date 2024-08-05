@@ -1,6 +1,5 @@
 package com.sk.rk.order.service;
 
-import com.sk.rk.events.OrderCompletedEvent;
 import com.sk.rk.events.OrderCreatedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,15 +20,8 @@ public class KafkaOrderProducer {
     @Value("${spring.topic.order-completed}")
     private String orderCompletedTopic;
 
-/*    @Autowired
-    @Qualifier(value = "order_completed_template")
-    private KafkaTemplate<String, OrderCompletedEvent> kafkaTemplate2;*/
 
     public void publishMessageCreated(OrderCreatedEvent orderCreatedEvent) {
         kafkaTemplate.send(orderCreatedTopic, orderCreatedEvent);
     }
-
-/*    public void publishMessageCompleted(OrderCompletedEvent orderCompletedEvent) {
-        kafkaTemplate2.send(orderCompletedTopic, orderCompletedEvent);
-    }*/
 }

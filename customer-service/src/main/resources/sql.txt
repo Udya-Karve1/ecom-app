@@ -1,5 +1,5 @@
-CREATE SCHEMA `sqldb-customer` ;
-USE `sqldb-customer`;
+CREATE SCHEMA `sqldb-ecom-customer` ;
+USE `sqldb-ecom-customer`;
 
 CREATE TABLE `customer` (
   `customer_id` int NOT NULL AUTO_INCREMENT,

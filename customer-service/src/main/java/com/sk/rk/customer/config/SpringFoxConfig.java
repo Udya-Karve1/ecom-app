@@ -21,8 +21,8 @@ public class SpringFoxConfig {
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("cloud API")
-                        .description("cloud API")
+                .info(new Info().title("Customer")
+                        .description("Customer related endpoints.")
                         .version("1.0")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }

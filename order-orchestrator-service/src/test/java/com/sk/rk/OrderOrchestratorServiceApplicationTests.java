@@ -8,6 +8,7 @@ class OrderOrchestratorServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert (true);
 	}
 
 }

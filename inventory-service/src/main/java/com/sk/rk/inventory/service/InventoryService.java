@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Map;
+
 @FeignClient("PRODUCT-SERVICE")
 public interface InventoryService {
 
@@ -13,13 +15,13 @@ public interface InventoryService {
     Object getQuantity(@PathVariable("product-id")Long productId);
 
     @PostMapping("/product/v1/api/quantity-decrease/{product-id}/{quantity}")
-    ResponseEntity decreaseQuantity(
+    ResponseEntity<Map<String, Object>> decreaseQuantity(
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity
     );
 
     @PostMapping("/product/v1/api/quantity-increase/{product-id}/{quantity}/1")
-    ResponseEntity increaseQuantity(
+    ResponseEntity<Map<String, Object>> increaseQuantity(
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity
     );

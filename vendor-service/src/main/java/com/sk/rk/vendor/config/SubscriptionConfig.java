@@ -33,7 +33,7 @@ public class SubscriptionConfig {
 
     @Primary
     @Bean
-    public DataSource subscriptionSqlDataSource(@Qualifier("subscriptionDataSourceProperties")
+    public DataSource createSubscriptionSqlDataSource(@Qualifier("subscriptionDataSourceProperties")
                                                 DataSourceProperties subscriptionDataSourceProperties) {
         return subscriptionDataSourceProperties
                 .initializeDataSourceBuilder().build();
@@ -41,7 +41,7 @@ public class SubscriptionConfig {
 
     @Primary
     @Bean
-    public LocalContainerEntityManagerFactoryBean subscriptionSqlPlatformTransactionManager(
+    public LocalContainerEntityManagerFactoryBean createLocalContainerEntityManagerFactoryBean(
             @Qualifier("subscriptionSqlDataSource") DataSource pgsqlDataSource, EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(pgsqlDataSource)
@@ -52,7 +52,7 @@ public class SubscriptionConfig {
 
     @Primary
     @Bean
-    public PlatformTransactionManager subscriptionSqlPlatformTransactionManager(
+    public PlatformTransactionManager createSubscriptionSqlPlatformTransactionManager(
             @Qualifier("subscriptionEntityManagerFactory") EntityManagerFactory subscriptionEntityManagerFactory) {
         return new JpaTransactionManager(subscriptionEntityManagerFactory);
     }

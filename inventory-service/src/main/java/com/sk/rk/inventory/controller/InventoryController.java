@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/inventory/v1/api")
 public class InventoryController {
@@ -23,7 +25,7 @@ public class InventoryController {
     }
 
     @PatchMapping("/quantity-decrease/{product-id}/{quantity}")
-    public ResponseEntity decreaseInventory(
+    public ResponseEntity<Map<String, Object>> decreaseInventory(
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity
     ){
@@ -32,7 +34,7 @@ public class InventoryController {
     }
 
     @PatchMapping("/quantity-increase/{product-id}/{quantity}")
-    public ResponseEntity increaseInventory(
+    public ResponseEntity<Map<String, Object>> increaseInventory(
             @PathVariable("product-id") Long productId
             , @PathVariable("quantity") Integer quantity
     ){

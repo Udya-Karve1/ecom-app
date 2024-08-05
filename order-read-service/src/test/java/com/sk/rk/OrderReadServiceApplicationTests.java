@@ -8,6 +8,7 @@ class OrderReadServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert(true);
 	}
 
 }

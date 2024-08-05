@@ -71,7 +71,7 @@ public class OrderConsumer {
 
         Map<String, Object> productData = (Map<String, Object>) productResponse.get("data");
         customerOrder.setProductName(productData.get("productName").toString());
-        customerOrder.setPrice(new Double(productData.get("price").toString()));
+        customerOrder.setPrice(Double.valueOf(productData.get("price").toString()));
 
         return customerOrder;
     }

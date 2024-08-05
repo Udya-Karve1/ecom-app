@@ -4,7 +4,104 @@
 #eureka.client.serviceUrl.defaultZone = http://localhost:8761/eureka/
 #spring.config.import=configserver:http://localhost:8888/api/config
 
-spring.data.mssql.host=localhost
-spring.data.mssql.user=sa
-spring.data.mssql.password=softweb#123
-spring.data.mssql.database=sqldb-ecom-gateway
+spring:
+  application:
+    name: gateway-service
+  data:
+    mssql:
+      host: localhost
+      username: sa
+      password: softweb#123
+      database: sqldb-ecom-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+          filters:
+            - RewritePath=/order/(?<path>.*), /$\{path}
+        - id: customer
+          uri: lb://customer-service
+          predicates:
+            - Path=/customer/**
+          filters:
+            - RewritePath=/customer/(?<path>.*), /$\{path}
+        - id: product
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - RewritePath=/product/(?<path>.*), /$\{path}
+        - id: payment
+          uri: lb://payment-service
+          predicates:
+            - Path=/payment/**
+          filters:
+            - RewritePath=/payment/(?<path>.*), /$\{path}
+        - id: customer-order
+          uri: lb://order-read-service
+          predicates:
+            - Path=/customer-order/**
+          filters:
+            - RewritePath=/customer-order/(?<path>.*), /$\{path}
+        - id: inventory
+          uri: lb://inventory-service
+          predicates:
+            - Path=/inventory/**
+          filters:
+            - RewritePath=/inventory/(?<path>.*), /$\{path}
+        - id: openapi
+          uri: http://localhost:80
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+springdoc:
+  enable-native-support: true
+  api-docs:
+    groups:
+      enabled: true
+    enabled: true
+  group-config:
+    - group: product
+      paths-to-match:
+        - /product/**
+      display-name: Product
+    - group: customer
+      paths-to-match:
+        - /customer/**
+      display-name: Customer
+    - group: order
+      paths-to-match:
+        - /order/**
+      display-name: Order
+    - group: payment
+      paths-to-match:
+        - /payment/**
+      display-name: Payment
+    - group: inventory
+      paths-to-match:
+        - /inventory/**
+      display-name: Inventory
+    - group: customer-order
+      paths-to-match:
+        - /customer-order/**
+      display-name: Customer Order
+  swagger-ui:
+    config-url: /v3/api-docs/swagger-config
+    url: /v3/api-docs
+    urls:
+      - url: /product/v3/api-docs
+        name: Product
+      - url: /customer/v3/api-docs
+        name: Customer
+      - url: /order/v3/api-docs
+        name: Order
+      - url: /payment/v3/api-docs
+        name: Payment
+      - url: /customer-order/v3/api-docs
+        name: Customer Order
+      - url: /inventory/v3/api-docs
+        name: Inventory

@@ -32,18 +32,18 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
         order = orderRepository.save(order);
         kafkaOrderProducer.publishMessageCreated(createOrderCreatedEvent(order));
-        //kafkaOrderProducer.publishMessageCompleted(createOrderCompletedEvent(order));
         return order;
     }
 
     @Override
     public Order modifiedOrder(UpdateOrder order) {
+        // method is empty
         return null;
     }
 
     @Override
     public void updateOrderStatus(Long orderId, String orderStatus) {
-
+        // method is empty
     }
 
 

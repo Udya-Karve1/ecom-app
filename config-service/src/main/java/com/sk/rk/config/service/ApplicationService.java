@@ -45,7 +45,7 @@ public class ApplicationService {
                 .findByApplicationNameIgnoreCase(application.getApplicationName());
 
         if(CollectionUtils.isEmpty(applications)) {
-            return applicationRepository.save(application);
+            return applicationRepository.saveAndFlush(application);
         } else {
             throw new BaseException(400, "Application already exists with name : " + application.getApplicationName());
         }

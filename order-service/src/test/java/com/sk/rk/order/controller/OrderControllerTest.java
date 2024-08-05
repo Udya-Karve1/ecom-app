@@ -25,14 +25,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @ExtendWith(SpringExtension.class)
 @Slf4j
-public class OrderControllerTest {
+class OrderControllerTest {
 
     @Autowired
     private ObjectMapper mapper;
 
 
     @ParameterizedTest(name = "{displayName}")
-    @JsonFileSource(resources = "/src/test/resources/testCases.json")
+    @JsonFileSource(resources = "/testCases.json")
     @Tag("unit")
     void testActionController(JsonObject object) throws IOException, JSONException {
 

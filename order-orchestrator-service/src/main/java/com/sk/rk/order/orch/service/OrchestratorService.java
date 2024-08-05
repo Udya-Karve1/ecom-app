@@ -52,7 +52,7 @@ public class OrchestratorService {
                 .flatMap(WorkflowStep::process)
                 .log()
                         .handle(((aBoolean, synchronousSink)->{
-                            if(aBoolean)
+                            if(aBoolean.booleanValue())
                                 synchronousSink.next(true);
                             else
                                 synchronousSink.error(new WorkflowException("Create order failed"));
